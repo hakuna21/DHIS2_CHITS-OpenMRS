@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<reportTemplates xmlns:d2="http://dhis2.org/schema/dxf/2.0">
+     
+     <dataElements>
+	   <dataElement uid="nkOlqRCq8J9" code="HXHPN" name="hx_hypertension" type="int"/>
+          <dataElement uid="NCq15lhqnuo" code="ASDIS" name="age_sex_distribution" type="int"/>  
+     </dataElements>
+
+     <disaggregations>
+	   <disaggregation uid="Gb0BGTbfg19" code="Gb0BGTbfg19" name="male_uncategorized_member"/>
+	   <disaggregation uid="YDEW3nm5WC7" code="YDEW3nm5WC7" name="zero_one_years_female"/>
+
+     </disaggregations>
+  
+     <reportTemplate>
+	  <name>PCB Form A2</name>
+	  <uid>bazOE3Zgw8O</uid>
+	  <code>A2</code>
+	  <periodType>Monthly</periodType>
+	  <dataValueTemplates>
+  	       <dataValueTemplate dataElement="HXHPN" disaggregation="Gb0BGTbfg19">
+           <annotation>
+      	       select count(distinct p.person_id)
+      	from person p
+      	inner join obs o on o.person_id = p.person_id
+      	where p.voided = 0 and o.voided = 0
+      	and o.concept_id = 31
+      	and o.obs_datetime >= :startOfPeriod
+      	and o.obs_datetime &lt;= :endOfPeriod
+      	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+             <dataValueTemplate dataElement="ASDIS" disaggregation="YDEW3nm5WC7">
+           <annotation>
+      	       select count(distinct p.person_id)
+      	from person p
+      	inner join obs o on o.person_id = p.person_id
+      	where p.voided = 0 and o.voided = 0
+      	and o.concept_id = 28
+      	and o.obs_datetime >= :startOfPeriod
+      	and o.obs_datetime &lt;= :endOfPeriod
+      	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+	  </dataValueTemplates>
+    </reportTemplate>
+</reportTemplates>
