@@ -1,0 +1,8 @@
+LINKS:
+
+DHIS2 Module on CHITS-OpenMRS
+   https://docs.google.com/document/d/1tuU4YwPI3QvP_IJuTWSmegdpFJMCdPhmXsoN92M0dsk/edit
+
+
+* to get PhilHealth's DHIS2 dump
+* mapping of concepts from CHITS-OpenMRS and DHIS'2 Datasets+CategoryOptionCombos
