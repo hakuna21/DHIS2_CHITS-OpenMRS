@@ -1,4 +1,4 @@
-LINKS:
+LINK(S):
 
 DHIS2 Module on CHITS-OpenMRS
    https://docs.google.com/document/d/1tuU4YwPI3QvP_IJuTWSmegdpFJMCdPhmXsoN92M0dsk/edit
