@@ -1,0 +1,3291 @@
+<?xml version="1.0"?>
+<reportTemplates xmlns:d2="http://dhis2.org/schema/dxf/2.0">
+     
+     <dataElements>
+		
+
+		<dataElement uid="NCq15lhqnuo" code="ASDIS" name="Age - Sex Distribution" type="int"/>
+	  	<dataElement uid="VkZjE6L652o" code="BREASTCASCREENING" name="Breast Cancer Screening" type="int"/>
+		<dataElement uid="OxpzYFsKHhf" code="FEMALE25YRSANDABOVE" name="Female 25 Years Old And Above" type="int"/>
+		<dataElement uid="mEbkCXYVNBZ" code="CERVICALCACASCREENING" name="Cervical Cancer Screening" type="int"/>
+		<dataElement uid="oq4an4KeDPW" code="F25-55YRSINTACTUTERUS" name="Female 25 - 55 Years Old With Intact Uterus" type="int"/>
+		<dataElement uid="yxoqRQbAWQf" code="BPLT14090" name="Adult With BP Less than 140/90 MmHg" type="int"/>
+	 	<dataElement uid="LLPnUoQZH88" code="BPGT14090" name="Adult With BP Greater than or equal to 140/90 But Less Than 180/120 MmHg" type="int"/>
+	  	<dataElement uid="omNTBZemMAf" code="BPGT180120" name="Adult With BP Greater than 180/120 MmHg" type="int"/>
+		<dataElement uid="nkOlqRCq8J9" code="HXHPN" name="History of Diagnosis Of Hypertension" type="int"/>
+	  	<dataElement uid="LMpAtaSUrMx" code="INTAKEHPNMEDS" name="Intake of hypertensive medicine" type="int"/>
+		<dataElement uid="NSOch8Lp4T0" code="DMPOLYWTLOSS" name="Diabetes Mellitus Cases With Signs And Symptoms Of Polyuria, Polydipsia And Weight Loss" type="int"/>
+	  	<dataElement uid="dQDiSnU4UtT" code="WCGTEQ80F90M" name="DM Cases Waist Circ" type="int"/>		
+		<dataElement uid="V0mNENVblkQ" code="HXDM" name="History Of Diagnosis Of Diabetes" type="int"/>
+	  	<dataElement uid="Mv8vNVM5neg" code="INTAKEOHA" name="Intake Of Oral Hypoglycemics" type="int"/>
+	  
+		
+
+
+		<dataElement uid="G4NrNlL03Gf" code="HCFACILITYNAME" name="Name of Healthcare Facility" type="string"/>
+		<dataElement uid="qYckN1KcdmJ1q" code="REGION" name="Region" type="String"/>
+		<dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
+		<dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
+		<dataElement uid="MX3aKELqeqU" code="FAMILIESASSIGNED" name="Families Assigned" type="int"/>
+		<dataElement uid="jDjV4dKciiW" code="MEMBERSHIPTYPE" name="Membership Type" type="int"/>
+		<dataElement uid="PtxCUXvoN1q" code="NONPHICMEMBERS" name="Non-PHIC Members" type="int"/>
+		
+		<dataElement uid="fCKCCcXupUE" code="SPNHTS" name="SP - NHTS" type="int"/>
+		<dataElement uid="w5pW5eymZdM" code="SPLGU" name="SP - LGU" type="int"/>
+		<dataElement uid="wrplLObrtFO" code="SPNGA" name="SP - NGA" type="int"/>
+		<dataElement uid="yPY6ylW3olP" code="SPPRIVATE" name="SP - Private" type="int"/>
+		<dataElement uid="n9n42Rg0FTF" code="IPPOG" name="IPP - OG" type="int"/>
+		<dataElement uid="IQq96k9Ppq8" code="IPPOFW" name="IPP - OFW" type="int"/>
+	
+     	</dataElements>
+
+     	<disaggregations>
+		<disaggregation uid="DtAFkwoCzGW" code="DtAFkwoCzGW" name="default"/>
+	  	<disaggregation uid="qYSsxO6u0zf" code="qYSsxO6u0zf" name="0 - 1 Years, Male"/>
+	  	<disaggregation uid="YDEW3nm5WC7" code="YDEW3nm5WC7" name="0 - 1 Years, Female"/>
+	  	<disaggregation uid="cOxEffR1G4w" code="cOxEffR1G4w" name="2 - 5 Years, Male"/>
+		<disaggregation uid="KBpuiPCfwl2" code="KBpuiPCfwl2" name="2 - 5 Years, Female"/>
+	 	<disaggregation uid="WgqPg1sOB2P" code="WgqPg1sOB2P" name="Male, 6 - 15 Years"/>
+	 	<disaggregation uid="Stpt6peYojW" code="Stpt6peYojW" name="Female, 6 - 15 Years"/>
+		<disaggregation uid="zQTU2sW2Lo5" code="zQTU2sW2Lo5" name="16 - 24 Years, Male"/>
+	     	<disaggregation uid="m4DCDIzvEEs" code="m4DCDIzvEEs" name="16 - 24 Years, Female"/>
+	    	<disaggregation uid="jQqJmpVotsc" code="jQqJmpVotsc" name="25 - 59 Years, Male"/>
+	      	<disaggregation uid="MNsjmluOX4O" code="MNsjmluOX4O" name="25 - 59 Years, Female"/>
+		<disaggregation uid="v27BmfkE9yM" code="v27BmfkE9yM" name="60 Years And Above, Male"/>
+	      	<disaggregation uid="vP5gsrG4pZM" code="vP5gsrG4pZM" name="60 Years And Above, Female"/>
+		<disaggregation uid="jU2qMGkPJ6p" code="jU2qMGkPJ6p" name="Member"/>
+		<disaggregation uid="nVh4nHYTIPn" code="nVh4nHYTIPn" name="Dependent"/>
+		<disaggregation uid="JBMEkIpAf0I" code="JBMEkIpAf0I" name="Male, Member"/>
+		<disaggregation uid="UvGPjTHZ9BC" code="UvGPjTHZ9BC" name="Female, Member"/>
+		<disaggregation uid="CPfb5EpH7bu" code="CPfb5EpH7bu" name="Dependent, Male"/>
+		<disaggregation uid="LsNCrxHrs2H" code="LsNCrxHrs2H" name="Dependent, Female"/>
+		<disaggregation uid="Gb0BGTbfg19" code="Gb0BGTbfg19" name="Male, uncategorized, Member"/>
+	    	<disaggregation uid="RJCP3pTXPpd" code="RJCP3pTXPpd" name="Female, Non-Pregnant, Member"/>
+		<disaggregation uid="gfWVfTtytf3" code="gfWVfTtytf3" name="Member, Female, Pregnant"/>
+		<disaggregation uid="kmAfodCt6AZ" code="kmAfodCt6AZ" name="Male, Uncategorized, Dependent"/>
+		<disaggregation uid="tF0Ng9gqkUW" code="tF0Ng9gqkUW" name="Dependent, Female, Non-Pregnant"/>
+		<disaggregation uid="MUQxq9J7UYH" code="MUQxq9J7UYH" name="Dependent, Female, Pregnant"/>
+
+	
+     	</disaggregations>
+     
+     
+     
+  
+     <reportTemplate>
+	  <name>PCB A2 Form</name>
+	  <uid>gkB9GAnH2wk</uid>
+	  <code>A2</code>
+	  <periodType>Monthly</periodType>
+	  
+
+	<dataValueTemplates>
+  	 
+
+	<!-- O.  HEALTHCARE FACILITY  (using description) -->
+
+	<dataValueTemplate dataElement="HCFACILITYNAME" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       select description
+      	from location l
+      	where l.retired = 0 
+        or l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-A.  REGION  (using address2) -->
+
+	 <dataValueTemplate dataElement="REGION" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       select address6
+      	from location l
+      	where l.retired = 0 
+        or l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-B.  PROVINCE (using state_province) -->
+
+	 <dataValueTemplate dataElement="PROVINCE" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       select state_province
+      	from location l
+      	where l.retired = 0 
+        or l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>     
+
+	<!-- I-C.  CITY/MUNICIPALITY (using city_village) -->
+
+	 <dataValueTemplate dataElement="CITY_MUNICIPALITY" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       select city_village
+      	from location
+      	where retired = 0 
+        or date_created >= :startOfPeriod
+      	or date_created &lt;= :endOfPeriod
+      	and location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+	
+
+	<!-- I-D.  NO. OF ASSIGNED FAMILIES -->
+
+	 <dataValueTemplate dataElement="FAMILIESASSIGNED" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       select count(distinct ff.code)
+		      from chits_family_folder ff
+			inner join chits_family_folder_patient ffp on ff.family_folder_id  = ffp.family_folder_id  
+                        inner join obs o on ffp.patient_id = o.person_id
+		      where ff.voided = 0 and o.voided 
+        or ff.date_created >= :startOfPeriod
+      	or ff.date_created &lt;= :endOfPeriod
+      	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+	
+	
+
+	 <!-- I-H.  SP - NHTS Member (using sponsor = NATIONAL) -->
+
+	 <dataValueTemplate dataElement="SPNHTS" disaggregation="DtAFkwoCzGW">
+           <annotation>
+		 Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR'
+)
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='NATIONAL')
+	
+
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+
+)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+
+      	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+        
+	
+	<!-- I-F.  SP - LGU (using sponsor = LGU) -->
+
+	 <dataValueTemplate dataElement="SPLGU" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='LGU')
+
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+      	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-F.  SP - NGA (using sponsor = EMPLOYER?)-->
+
+	 <dataValueTemplate dataElement="SPNGA" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='EMPLOYER')
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+      	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-G.  SP - PRIVATE  (using sponsor = Private)-->
+
+	 <dataValueTemplate dataElement="SPPRIVATE" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='Private')
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+      	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-H.  IPP - OG (using sponsor = IPP) -->
+
+	 <dataValueTemplate dataElement="IPPOG" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	       Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='IPP')
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+      	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-I.  IPP - OFW -->
+
+	 <dataValueTemplate dataElement="IPPOFW" disaggregation="DtAFkwoCzGW">
+           <annotation>
+      	      Select count(distinct pa.person_id) 
+	from person_attribute pa
+	inner join obs o  on  pa.person_id = o.person_id
+	where pa.voided = 0 and o.voided = 0
+	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
+	and pa.value IN (SELECT concept_id from concept_name WHERE name='PHIC IPP, OFW')
+
+	and pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+
+	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+	<!-- I-J.  NON-PHIC MEMBERS -->
+
+	 <dataValueTemplate dataElement="NONPHICMEMBERS" disaggregation="DtAFkwoCzGW">
+           <annotation>
+		select count(distinct pa.person_id) from person_attribute pa 
+		inner join obs o on pa.person_id = o.person_id 
+	where pa.voided = 0 and o.voided = 0
+		
+
+	and
+	(
+	pa.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(curdate(), STR_TO_DATE( `value` , '%m/%d/%Y' )) >= 0
+	and voided = 0	
+	)
+
+	or
+	pa.person_id NOT IN (
+		select distinct pa.person_id FROM person_attribute pa
+		where person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH'
+		and voided = 0
+)
+		)	
+
+	)
+
+	and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+   	<!-- AGE SEX DISTRIBUTION -->
+     
+	          
+	       <!-- II-A.   de: Age - Sex Distribution         (0 - 1 Years, Male)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="qYSsxO6u0zf">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      inner join person_attribute pa on o.person_id = pa.person_id 
+		      where p.voided = 0 and o.voided = 0 and pa.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 2
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+		    	
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+		
+		<!-- II-B.   de: Age - Sex Distribution         c: (0 - 1 years, Female)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="YDEW3nm5WC7">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 2
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+	
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+		    	       
+	       <!-- II-C.   de: Age - Sex Distribution        2 - 5 Years, Male)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="cOxEffR1G4w">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 2
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 6
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			       
+	       <!-- II-D.   de: Age - Sex Distribution         c: (2 - 5 years, Female)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="KBpuiPCfwl2">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 2
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 6
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+					       
+					       
+	       <!-- II-E.  de: Age - Sex Distribution         c: (6 - 15 Years, Male)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="WgqPg1sOB2P">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 6
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 16
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>			
+					       
+	       <!-- II-F.  de: Age - Sex Distribution         c: (6 - 15 Years, Female)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="Stpt6peYojW">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 6
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 16
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+	
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			    
+	       <!-- II-G.  de: Age - Sex Distribution         c: (16 - 24 Years, Male)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="zQTU2sW2Lo5">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 16
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 25
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			    
+	       <!-- II-H.  de: Age - Sex Distribution         c: (16 - 24 Years, Female)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="m4DCDIzvEEs">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 16
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 25
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			 
+	       <!-- II-I. de: Age - Sex Distribution         c: (25 - 59 Years, Male)  -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="jQqJmpVotsc">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 60
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			 
+	       <!-- II-J.  de: Age - Sex Distribution         c: (25 - 59 Years, Female) -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="MNsjmluOX4O">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 60
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			 
+	       <!-- II-K.  de: Age - Sex Distribution         c: (60 Years And Above, Male) -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="v27BmfkE9yM">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 60
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+			 
+	       <!-- II-L.  de: Age - Sex Distribution         c: (60 Years And Above, Female) -->
+	       <dataValueTemplate dataElement="ASDIS" disaggregation="vP5gsrG4pZM">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 60
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+		    </annotation>
+	       </dataValueTemplate>
+	
+		
+		<!-- III. PRIMARY PREVENTIVE SERVICES -->
+
+		<!--- III-A. de: Breast Cancer Screening      c: (Member) -->
+	       <dataValueTemplate dataElement="BREASTCASCREENING" disaggregation="jU2qMGkPJ6p">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+		      where o.voided = 0
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - breast examination")
+			and o.value_text IS NOT NULL
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+		and voided = 0
+			)
+		
+
+		    </annotation>
+	       </dataValueTemplate>	
+		   
+		 <!--III-B.  de: Breast Cancer Screening        c: (Dependent)-->  
+	       <dataValueTemplate dataElement="BREASTCASCREENING" disaggregation="nVh4nHYTIPn">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+		      where o.voided = 0
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - breast examination")
+			and o.value_text IS NOT NULL
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+		and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>	
+
+		<!--- III-C. de: Female 25 years old and above      c: (Member) -->
+	       <dataValueTemplate dataElement="FEMALE25YRSANDABOVE" disaggregation="jU2qMGkPJ6p">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and p.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+		and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>	
+		   
+		 <!--III-D.  de: Female 25 years old and above        c: (Dependent)-->  
+	       <dataValueTemplate dataElement="FEMALE25YRSANDABOVE" disaggregation="nVh4nHYTIPn">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			and p.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and p.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>	
+
+	  	<!--- III-E. de: Cervical Cancer Screening      c: (Member) -->
+	       <dataValueTemplate dataElement="CERVICALCACASCREENING" disaggregation="jU2qMGkPJ6p">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+		      where o.voided = 0
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control")
+		   	and o.value_text IS NOT NULL
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+		and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>	
+		   
+		 <!--III-F.  de: Cervical Cancer Screening        c: (Dependent)-->  
+	       <dataValueTemplate dataElement="CERVICALCACASCREENING" disaggregation="nVh4nHYTIPn">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+		      where o.voided = 0
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control")
+			and o.value_text IS NOT NULL
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>
+
+
+	  	<!--- III-G. de: Female 25 - 55 years old with intact uterus      c: (Member) -->
+	       <dataValueTemplate dataElement="F25-55YRSINTACTUTERUS" disaggregation="jU2qMGkPJ6p">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 56
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+
+		
+			and o.person_id NOT IN 
+				(SELECT person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Uterus, not intact')
+				and o.value_text = 'yes')
+
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+		and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>	
+		   
+		 <!--III-H.  de: Female 25 - 55 years old with intact uterus        c: (Dependent)-->  
+	       <dataValueTemplate dataElement="F25-55YRSINTACTUTERUS" disaggregation="nVh4nHYTIPn">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
+		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 56
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id NOT IN 
+				(SELECT person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Uterus, not intact')
+				and o.value_text = 'yes')
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+		    </annotation>
+	       </dataValueTemplate>
+
+
+		<!-- IV.  DIABETES MELLITUS -->
+	   
+	       <!--IV-A1.  de: Diabetes Mellitus Cases With Signs And Symptoms Of Polyuria, Polydipsia And Weight Loss        c: (Male, Member)-->  
+	       <dataValueTemplate dataElement="DMPOLYWTLOSS" disaggregation="JBMEkIpAf0I">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+
+			( 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				and o.value_text = 'yes')
+			
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				and o.value_text = 'yes')
+			
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-A2.  de: Diabetes Mellitus Cases With Signs And Symptoms Of Polyuria, Polydipsia And Weight Loss        c: (Female, Member)-->  
+	       <dataValueTemplate dataElement="DMPOLYWTLOSS" disaggregation="UvGPjTHZ9BC">
+		    <annotation>
+		       select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+
+			( 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				and o.value_text = 'yes')
+			
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				and o.value_text = 'yes')
+			
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-A3.  de: Diabetes Mellitus Cases With Signs And Symptoms Of Polyuria, Polydipsia And Weight Loss        c: (Male, Dependent)-->  
+	       <dataValueTemplate dataElement="DMPOLYWTLOSS" disaggregation="CPfb5EpH7bu">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+
+			( 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				and o.value_text = 'yes')
+			
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				and o.value_text = 'yes')
+			
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-A4.  de: Diabetes Mellitus Cases With Signs And Symptoms Of Polyuria, Polydipsia And Weight Loss        c: (Female, Dependent)-->  
+	       <dataValueTemplate dataElement="DMPOLYWTLOSS" disaggregation="LsNCrxHrs2H">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+
+			( 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				and o.value_text = 'yes')
+
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				and o.value_text = 'yes')
+			
+			or o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				and o.value_text = 'yes')
+			
+			)
+			</annotation>
+	       </dataValueTemplate>
+		   
+		   
+	       <!--IV-B1.  de: Waist Circumference ( >=80 Cm For Female And <=90 Cm For Male)       c: (Male, Member)-->  
+	       <dataValueTemplate dataElement="WCGTEQ80F90M" disaggregation="JBMEkIpAf0I">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+GROUP BY person_id )
+
+			)
+			
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-B2.  de: Waist Circumference ( >=80 Cm For Female And <=90 Cm For Male)       c: (Female, Member)-->  
+	       <dataValueTemplate dataElement="WCGTEQ80F90M" disaggregation="UvGPjTHZ9BC">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 80 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-B3.  de: Waist Circumference ( >=80 Cm For Female And <=90 Cm For Male)       c: (Male, Dependent)-->  
+	       <dataValueTemplate dataElement="WCGTEQ80F90M" disaggregation="CPfb5EpH7bu">
+		    <annotation>
+		      select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'M'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-B4.  de: Waist Circumference ( >=80 Cm For Female And <=90 Cm For Male)       c: (Female, Dependent)-->  
+	       <dataValueTemplate dataElement="WCGTEQ80F90M" disaggregation="LsNCrxHrs2H">
+		    <annotation>
+		     select count(distinct p.person_id)
+		      from person p
+		      inner join obs o on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		      and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+	or o.obs_datetime &lt;= :endOfPeriod)
+	and o.location_id = :locationId
+
+			
+		
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	and voided = 0
+			)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 80 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+
+
+
+			     
+		<!-- IV-C.  HISTORY OF DIAGNOSIS OF DIABETES -->
+	       
+	       <!--IV-C1.  de: History Of Diagnosis Of Diabetes         c: (Male, Member)-->  
+	       <dataValueTemplate dataElement="HXDM" disaggregation="JBMEkIpAf0I">
+		    <annotation>
+		       select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						
+
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-C2.  de: History Of Diagnosis Of Diabetes         c: (Female, Member)-->  
+	       <dataValueTemplate dataElement="HXDM" disaggregation="UvGPjTHZ9BC">
+		    <annotation>
+		       select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-C3.  de: History Of Diagnosis Of Diabetes         c: (Male, Dependent)-->  
+	       <dataValueTemplate dataElement="HXDM" disaggregation="CPfb5EpH7bu">
+		    <annotation>
+		       select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+		and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+		  
+	       <!--IV-C4.  de: History Of Diagnosis Of Diabetes         c: (Female, Dependent)-->  
+	       <dataValueTemplate dataElement="HXDM" disaggregation="LsNCrxHrs2H">
+		    <annotation>
+		       select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+		and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+		  
+	       <!---IV-D.   INTAKE OF ORAL HYPOGLYCEMICS -->
+			 
+	       <!--IV-D1.   de: Intake Of Oral Hypoglycemics        c: (Male, Member)-->  
+	       <dataValueTemplate dataElement="INTAKEOHA" disaggregation="JBMEkIpAf0I">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-D2.  de: Intake Of Oral Hypoglycemics        c: (Female, Member)-->  
+	       <dataValueTemplate dataElement="INTAKEOHA" disaggregation="UvGPjTHZ9BC">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-D3.  de: Intake Of Oral Hypoglycemics        c: (Male, Dependent)-->  
+	       <dataValueTemplate dataElement="INTAKEOHA" disaggregation="CPfb5EpH7bu">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--IV-D4.  de: Intake Of Oral Hypoglycemics        c: (Female, Dependent)-->  
+	       <dataValueTemplate dataElement="INTAKEOHA" disaggregation="LsNCrxHrs2H">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+			)
+		    </annotation>
+	       </dataValueTemplate>
+			 
+
+
+		<!-- V. HYPERTENSION -->
+
+		<!-- V-A.  ADULT WITH BP < 140/90 mmHg -->
+
+    		<!-- V-A1.   de: Adult with BP < 140/90 mmHg         c: (Male, Uncategorized, Member) -->  
+	       <dataValueTemplate dataElement="BPLT14090" disaggregation="Gb0BGTbfg19">
+		    <annotation>
+		       select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN 
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+		    </annotation>
+	       </dataValueTemplate>  
+
+
+	       <!-- V-A2.  de:   Adult with BP < 140/90 mmHg        c: (Female, Non-Pregnant, Member) -->  
+	       <dataValueTemplate dataElement="BPLT14090" disaggregation="RJCP3pTXPpd">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--  V-A3.   de: Adult with BP < 140/90 mmHg         c: (Female, Pregnant, Member) Member, Female, Pregnant -->  
+	       <dataValueTemplate dataElement="BPLT14090" disaggregation="gfWVfTtytf3">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN 
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--  V-A4.  de: Adult with BP < 140/90 mmHg        c: (Male, uncategorized, Dependent)-->  
+		  <dataValueTemplate dataElement="BPLT14090" disaggregation="kmAfodCt6AZ">
+			  <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN 
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+		    </annotation>
+		  </dataValueTemplate>    
+			 
+		<!--  V-A5.  de: Adult with BP < 140/90 mmHg         c: (Female, Non-Pregnant, Dependent) Dependent, Female Non-Pregnant-->  
+		  <dataValueTemplate dataElement="BPLT14090" disaggregation="tF0Ng9gqkUW">
+			  <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN 
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+		    </annotation>
+		  </dataValueTemplate>
+		  
+		  <!--V-A6.  de: Adult with BP < 140/90 mmHg        c: (Female, Pregnant, Dependent)-->  
+		  <dataValueTemplate dataElement="BPLT14090" disaggregation="MUQxq9J7UYH">
+			  <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 140 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+			
+			
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric &lt; 90 and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+			)
+			
+		    </annotation>
+		  </dataValueTemplate>
+			 
+		  
+
+
+		<!-- V-B.  HISTORY OF BP GREATER THAN 140/90-->	  
+			 
+		       
+	       <!--V-B1. de: History Of BP Greater Than 140/90         c: (Male, Uncategorized, Member) -->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="Gb0BGTbfg19">
+		    <annotation>
+		   select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>  
+			 
+	       <!--V-B2. de: History Of BP Greater Than 140/90        c: (Female, Non-Pregnant, Member) -->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="RJCP3pTXPpd">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		   	
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-B3. de:  History Of BP Greater Than 140/90          c: (Female, Pregnant, Member) Member, Female, Pregnant -->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="gfWVfTtytf3">
+		    <annotation>
+		     select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-B4. de:  History Of BP Greater Than 140/90            c: (Male, uncategorized, Dependent)-->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="kmAfodCt6AZ">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-B5. de:  History Of BP Greater Than 140/90            c: (Female, Non-Pregnant, Dependent)Dependent, Female, Non-Pregnant -->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="tF0Ng9gqkUW">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-B6. de:  History Of BP Greater Than 140/90            c: (Female, Pregnant, Dependent)-->  
+	       <dataValueTemplate dataElement="BPGT14090" disaggregation="MUQxq9J7UYH">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 140 
+and o.value_numeric &lt; 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 90 
+and o.value_numeric &lt; 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+			   	  
+				  
+		<!-- V-C.  HISTORY OF BP GREATER THAN 180/120-->	  
+			      
+	       <!--V-C1. de:  History Of BP Greater Than 180/120            c: (Male, Uncategorized, Member) -->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="Gb0BGTbfg19">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>  
+			 
+	       <!--V-C2.   de: History Of BP Greater Than 180/120           c: (Female, Non-Pregnant, Member) -->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="RJCP3pTXPpd">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-C3.  de: History Of BP Greater Than 180/120          c: (Female, Pregnant, Member) Member, Female, Pregnant -->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="gfWVfTtytf3">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-C4.  de: History Of BP Greater Than 180/120           c: (Male, uncategorized, Dependent)-->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="kmAfodCt6AZ">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-C5.  de: History Of BP Greater Than 180/120          c: (Female, Non-Pregnant, Dependent) Dependent, Female, Non-Pregnant-->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="tF0Ng9gqkUW">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-C6.  de: History Of BP Greater Than 180/120           c: (Female, Pregnant, Dependent)-->  
+	       <dataValueTemplate dataElement="BPGT180120" disaggregation="MUQxq9J7UYH">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 180
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+
+			
+			and 
+			o.person_id IN
+			(
+					SELECT o.person_id FROM obs o WHERE 
+o.value_numeric >= 120
+and
+
+			obs_id IN (SELECT max(obs_id) FROM obs WHERE
+concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+GROUP BY person_id )
+
+			)
+		    </annotation>
+	       </dataValueTemplate>
+			   
+
+			 
+	       <!--V-D.  HISTORY OF DIAGNOSIS OF HYPERTENSION-->	  
+		       
+	       <!--V-D1.  de: History Of Diagnosis Of Hypertension         c: (Male, Uncategorized, Member) -->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="Gb0BGTbfg19">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+
+		    </annotation>
+	       </dataValueTemplate>  
+			 
+	       <!--V-D2.  de: History Of Diagnosis Of Hypertension         c: (Female, Non-Pregnant, Member) -->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="RJCP3pTXPpd">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-D3.  de: History Of Diagnosis Of Hypertension         c: (Female, Pregnant, Member) Member, Female, Pregnant-->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="gfWVfTtytf3">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-D4.  de: History Of Diagnosis Of Hypertension         c: (Male, uncategorized, Dependent)-->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="kmAfodCt6AZ">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+			
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+			
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-D5.  de: History Of Diagnosis Of Hypertension         c: (Female, Non-Pregnant, Dependent) Dependent, Female, Non-Pregnant -->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="tF0Ng9gqkUW">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-D6.  de: History Of Diagnosis Of Hypertension         c: (Female, Pregnant, Dependent) Dependent, Female, Pregnang-->  
+	       <dataValueTemplate dataElement="HXHPN" disaggregation="MUQxq9J7UYH">
+		    <annotation>
+		     select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		    </annotation>
+	       </dataValueTemplate>
+
+
+      
+			  <!--V-E.  INTAKE OF HYPERTENSIVE MEDICATIONS-->	  
+
+	       <!--V-E1.  de: Intake of Hypertensive Medications         c: (Male, Uncategorized, Member) -->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="Gb0BGTbfg19">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      
+		   	
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+		    </annotation>
+	       </dataValueTemplate>  
+			 
+	       <!--V-E2.   de: Intake of Hypertensive Medications          c: (Female, Non-Pregnant, Member) -->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="RJCP3pTXPpd">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-E3.   de: Intake of Hypertensive Medications         c: (Female, Pregnant, Member) Member, Female, Pregnant -->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="gfWVfTtytf3">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Diabetes"
+			and o.obs_group_id IN 
+				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
+				and o.value_text = 'Local Health Center')
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-E4.    de: Intake of Hypertensive Medications         c: (Male, uncategorized, Dependent)-->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="kmAfodCt6AZ">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Diabetes"
+			and o.obs_group_id IN 
+				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
+				and o.value_text = 'Local Health Center')
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+		    </annotation>
+	       </dataValueTemplate>    
+			 
+	       <!--V-E5.   de: Intake of Hypertensive Medications          c: (Female, Non-Pregnant, Dependent) Dependent, Female, Non-Pregnant-->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="tF0Ng9gqkUW">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Diabetes"
+			and o.obs_group_id IN 
+				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
+				and o.value_text = 'Local Health Center')
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			and 
+			o.person_id NOT IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+		  
+	       <!--V-E6.  de: Intake of Hypertensive Medications          c: (Female, Pregnant, Dependent)-->  
+	       <dataValueTemplate dataElement="INTAKEHPNMEDS" disaggregation="MUQxq9J7UYH">
+		    <annotation>
+		      select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Diabetes"
+			and o.obs_group_id IN 
+				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
+				and o.value_text = 'Local Health Center')
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+		
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+			)
+
+			
+			and 
+			o.person_id IN 
+			(
+				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+			)
+
+		    </annotation>
+	       </dataValueTemplate>
+			     
+
+	  </dataValueTemplates>
+    </reportTemplate>
+</reportTemplates>
