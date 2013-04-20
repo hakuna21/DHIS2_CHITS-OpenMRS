@@ -1,0 +1,2196 @@
+<?xml version="1.0"?>
+<reportTemplates xmlns:d2="http://dhis2.org/schema/dxf/2.0">
+     
+     <dataElements>
+
+          <dataElement uid="YaICd87mYnY" code="BFPEDU" name="breast_feeding_education" type="int"/>
+<dataElement uid="E5UtDfKHfUJ" code="CFLSMOD" name="COUNSELING_lf_modification" type="int"/>
+<dataElement uid="QRckDStPBaP" code="CFSC" name="COUNSELING_fs_cessation" type="int"/>
+<dataElement uid="uANsvN7N9c1" code="BM" name="body_measurments" type="int"/>
+<dataElement uid="kqmtb3QTUn1" code="DREX" name="digital_rectal_examination" type="int"/>
+<dataElement uid="i5QnWxFrvy0" code="CBC" name="complete_blood_count" type="int"/>
+
+<dataElement uid="qMtyVCYyDtu" code="FCLY" name="fecalysis" type="int"/>
+<dataElement uid="bkUWVHERnZI" code="SPMIC" name="sputum_microscopy" type="int"/>
+
+<dataElement uid="jBDWhnpjCIN" code="FBSUG" name="fasting_blood_sugar" type="int"/>
+<dataElement uid="XJgbvoKkueQ" code="LPROF" name="lipid_profile" type="int"/>
+
+<dataElement uid="xOAnM12uS8c" code="CXRAY" name="chest_x_ray" type="int"/>
+<dataElement uid="qSFycli6qm5" code="MEMBERS" name="members" type="int"/>
+<dataElement uid="rUla1wQOge8" code="CONSU" name="consultation" type="int"/>
+<dataElement uid="jGbF1XY4W6B" code="URINALY" name="urinalysis" type="int"/>
+<dataElement uid="FFLmxaPR8NM" code="DEPNDS" name="dependents" type="int"/>
+<dataElement uid="j7cIGxFp9jr" code="PCBEX" name="periodic_cb_examination" type="int"/>
+<dataElement uid="Eu0DgSxhXL4" code="VIWAA" name="visual_iw_acetic_acid" type="int"/>
+<dataElement uid="FiUOyyczmjX" code="OTHBPM" name="obligated_thbp_measurement" type="int"/>
+<dataElement uid="LHcttC1qtTn" code="RBPM" name="regular_bp_measurment" type="int"/>
+<dataElement uid="T3QRYUfWIEz" code="OTPCBE" name="obligated_tpcb_examination" type="int"/>
+<dataElement uid="b1zdv5AOYJ7" code="OTVIWAA" name="obligated_tviw_acetic_acid" type="int"/>
+<dataElement uid="WofRHiIpUPF" code="OTNHBPM" name="obligated_tnhbp_measurement" type="int"/>
+<dataElement uid="Cjgc8TwLzCf" code="OAVIWAA" name="obligated_aviw_acetic_acid" type="int"/>
+<dataElement uid="Rr5Nnt7f6L1" code="OAPCBE" name="obligated_apcb_examination" type="int"/>
+<dataElement uid="l97GXcmIyRB" code="OANHBPM" name="obligated_anhbp_measurement" type="int"/>
+<dataElement uid="a6A97IKNddq" code="OAHBPM" name="obligated_ahbp_measurement" type="int"/>
+
+<dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
+<dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
+     </dataElements>
+
+     
+     <disaggregations>
+<!-- Given, Dependent -->
+<disaggregation uid="myfBUBEhsTM" code="myfBUBEhsTM" name="given_dependent"/>
+<!-- Referred, Member -->
+<disaggregation uid="NaXjTi9CCC6" code="NaXjTi9CCC6" name="referred_member"/>
+<!-- Given, Member -->
+<disaggregation uid="MATQcQq5AV3" code="MATQcQq5AV3" name="given_member"/>
+<!-- Referred, Dependent -->
+<disaggregation uid="ieraUcKsaLc" code="ieraUcKsaLc" name="referred_dependent"/>
+<!-- Male -->
+<disaggregation uid="HrYigPmbhB0" code="HrYigPmbhB0" name="male"/>
+<!-- Female -->
+<disaggregation uid="cQBIzjRpaWQ" code="cQBIzjRpaWQ" name="female"/>
+<!-- Default -->
+<disaggregation uid="beBubnoFLUo" code="beBubnoFLUo" name="default"/>
+
+     </disaggregations>
+    
+  
+     <reportTemplate>
+<name>PCB Form A4</name>
+<uid>WV7gKZaioyy</uid>
+<code>A4</code>
+<periodType>Quarterly</periodType>
+<dataValueTemplates>
+     
+
+	<!-- III-B.  PROVINCE (using state_province) -->
+
+	 <dataValueTemplate dataElement="PROVINCE" disaggregation="beBubnoFLUo">
+           <annotation>
+      	       select state_province
+      	from location l
+      	where l.retired = 0 
+        or l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>     
+
+	<!-- III-C.  CITY/MUNICIPALITY (using city_village) -->
+
+	 <dataValueTemplate dataElement="CITY_MUNICIPALITY" disaggregation="beBubnoFLUo">
+           <annotation>
+      	       select city_village
+      	from location
+      	where retired = 0 
+        or date_created >= :startOfPeriod
+      	or date_created &lt;= :endOfPeriod
+      	and location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+     
+	
+	<!--IV 1.1A. OBLIGATED TARGET HYPERTENSIVE BP MEASUREMENT -->
+
+	<!-- de: Obligated Target Hypertensive BP Measurement c: Default -->
+	<dataValueTemplate dataElement="OTHBPM" disaggregation="beBubnoFLUo">
+	<annotation>  select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+		</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!--IV 1.1 B. OBLIGATED ACCOMPLISHMENT HYPERTENSIVE BP MEASUREMENT -->
+
+	<!-- de: Obligated Accomplishment Hypertensive BP Measurement c: Default -->
+	<dataValueTemplate dataElement="OAHBPM" disaggregation="beBubnoFLUo">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+			and 
+			o.person_id IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)
+	
+		and 
+			o.value_numeric > 0 and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+
+			
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!--IV 1.2 A. OBLIGATED TARGET NON-HYPERTENSIVE BP MEASUREMENT -->
+
+	<!-- de: Obligated Target Non-Hypertensive BP Measurement c: Default -->
+	<dataValueTemplate dataElement="OTNHBPM" disaggregation="beBubnoFLUo">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+			and 
+			o.person_id NOT IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)	
+	
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!-- IV 1.2 B OBLIGATED ACCOMPLISHMENT NON-HYPERTENSIVE BP MEASUREMENT -->
+
+	<!-- de: Obligated Accomplishment Non-Hypertensive BP Measurement c: Default -->
+	<dataValueTemplate dataElement="OANHBPM" disaggregation="beBubnoFLUo">
+	<annotation> 
+		 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+		
+			and 
+			o.person_id NOT IN 
+				(SELECT o.person_id FROM obs o WHERE 
+
+o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+
+and o.value_text = 'yes' 
+and o.obs_group_id IN 
+	
+(SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
+ORDER BY obs_id DESC )
+)	
+	
+		
+		and 
+			o.value_numeric > 0 and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+
+	
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!-- IV 2 A OBLIGATED TARGET PERIODIC CLINICAL BREAST EXAMINATION -->
+
+	<!-- de: Obligated Target Periodic Clinical Breast Examination c: Default -->
+	<dataValueTemplate dataElement="OTPCBE" disaggregation="beBubnoFLUo">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+
+			and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Breast Cancer"
+
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+
+	<!-- IV 2 B  OBLIGATED ACCOMPLISHMENT PERIODIC CLINICAL BREAST EXAMINATION -->
+
+	<!-- de: Obligated Accomplishment Periodic Clinical Breast Examination c: Default -->
+	<dataValueTemplate dataElement="OAPCBE" disaggregation="beBubnoFLUo">
+	<annotation> 
+
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+
+			and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Type of breast examination done")	
+		
+			and 
+			o.value_text = "Clinical breast examination" 
+
+	</annotation>
+	</dataValueTemplate>
+
+	
+	<!-- IV 3 A  OBLIGATED TARGET VISUAL INSPECTION WITH ACETIC ACID -->
+
+	<!-- de: Obligated Target Visual Inspection With Acetic Acid c: Default -->
+	<dataValueTemplate dataElement="OTVIWAA" disaggregation="beBubnoFLUo">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+
+			and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		   	and o.value_text = "NCDM - Cervical Cancer"
+
+
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!-- IV 3 B  OBLIGATED ACCOMPLISHMENT VISUAL INSPECTION WITH ACETIC ACID -->
+
+	<!-- de: Obligated Accomplishment Visual Inspection With Acetic Acid c: Default -->
+	<dataValueTemplate dataElement="OAVIWAA" disaggregation="beBubnoFLUo">
+	<annotation> 
+	
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+
+			and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+		
+			and 
+			o.value_coded IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+
+	</annotation>
+	</dataValueTemplate>
+
+
+
+
+
+
+	<!-- V 1 A  MEMBERS MALE-->
+
+	<!-- de: members c: male -->
+	<dataValueTemplate dataElement="MEMBERS" disaggregation="HrYigPmbhB0">
+	<annotation> 
+		   select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- V 1 B  MEMBERS FEMALE-->
+	
+	<!-- de: members c: female -->
+	<dataValueTemplate dataElement="MEMBERS" disaggregation="cQBIzjRpaWQ">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+	
+	</annotation>
+	</dataValueTemplate>	
+
+
+
+	
+	<!-- V 2 A  DEPENDENTS MALE -->
+
+	<!-- de: Dependents c: male -->
+	<dataValueTemplate dataElement="DEPNDS" disaggregation="HrYigPmbhB0">
+
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'M'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- V 2 B  DEPENDENTS FEMALE -->
+
+	<!-- de: Dependents c: female -->
+	<dataValueTemplate dataElement="DEPNDS" disaggregation="cQBIzjRpaWQ">
+	<annotation> 
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 and p.gender = 'F'
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	
+	<!-- VI 1 A. CONSULTATION  G M-->
+
+	<!-- de: Consultation c: Given, Member -->
+	<dataValueTemplate dataElement="CONSU" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+	</annotation>
+	</dataValueTemplate>	
+
+
+	<!-- VI 1 B. CONSULTATION  G D-->
+
+	<!-- de: Consultation c: Given, Dependent -->
+	<dataValueTemplate dataElement="CONSU" disaggregation="myfBUBEhsTM">
+	<annotation> 
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+		     
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			
+						and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)			
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+	</annotation>
+	</dataValueTemplate>
+
+
+	
+	<!-- VI 2 A. VISUAL INSPECTION WITH ACETIC ACID  G M-->
+
+	<!-- de: Visual Inspection With Acetic Acid c: Given, Member -->
+	<dataValueTemplate dataElement="VIWAA" disaggregation="MATQcQq5AV3">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+		
+			and 
+			o.value_coded IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+
+
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI 2 B. VISUAL INSPECTION WITH ACETIC ACID  G D-->
+	
+	<!-- de: Visual Inspection With Acetic Acid c: Given, Dependent -->
+	<dataValueTemplate dataElement="VIWAA" disaggregation="myfBUBEhsTM">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+		
+			and 
+			o.value_coded IN (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done")	
+	</annotation>
+	</dataValueTemplate>
+
+	
+
+	
+	<!-- VI 3 A.  REGULAR BP MEASUREMENT  G M-->
+
+	
+	<!-- de: Regular BP Measurement c: Given, Member -->
+	<dataValueTemplate dataElement="RBPM" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and o.person_id IN (
+			SELECT person_id from obs where value_numeric IS NOT NULL and concept_id IN (SELECT concept_id from concept_name where name = "Systolic Blood Pressure") 
+group by person_id having count(concept_id)>1
+			)
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI 3 B.  REGULAR BP MEASUREMENT  G D-->
+
+	<!-- de: Regular BP Measurement c: Given, Dependent -->
+	<dataValueTemplate dataElement="RBPM" disaggregation="myfBUBEhsTM">
+	<annotation> 
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and o.person_id IN (
+			SELECT person_id from obs where value_numeric IS NOT NULL and concept_id IN (SELECT concept_id from concept_name where name = "Systolic Blood Pressure") 
+group by person_id having count(concept_id)>1
+			)
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI 4 A.  BREASTFEEDING PROGRAM EDUCATION G M-->
+	     
+	<!-- de: Breastfeeding Program Education c: Given, Member -->
+	<dataValueTemplate dataElement="BFPEDU" disaggregation="MATQcQq5AV3">
+	<annotation>
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and o.concept_id IN (SELECT concept_id from concept_name where name = "Breastfeeding Program Education") and o.value_text = "yes"
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI 4 B.  BREASTFEEDING PROGRAM EDUCATION G D-->
+
+	<!-- de: Breastfeeding Program Education c: Given, Dependent -->
+	<dataValueTemplate dataElement="BFPEDU" disaggregation="myfBUBEhsTM">
+	<annotation>
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and o.concept_id IN (SELECT concept_id from concept_name where name = "Breastfeeding Program Education") and o.value_text = "yes"
+	</annotation>
+	</dataValueTemplate>
+
+
+
+
+	<!-- VI 5 A.  PERIODIC CLINICAL BREAST EXAMINATION G M-->
+
+	
+	<!-- de: Periodic Clinical Breast Examination c: Given, Member -->
+	<dataValueTemplate dataElement="PCBEX" disaggregation="MATQcQq5AV3">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Type of breast examination done")	
+			and 
+			o.value_text = "Clinical breast examination" 
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI 5 A.  PERIODIC CLINICAL BREAST EXAMINATION G D-->
+
+	<!-- de: Periodic Clinical Breast Examination c: Given, Dependent -->
+	<dataValueTemplate dataElement="PCBEX" disaggregation="myfBUBEhsTM">
+
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Type of breast examination done")	
+			and 
+			o.value_text = "Clinical breast examination" 
+		</annotation>
+	</dataValueTemplate>
+
+
+
+
+	<!-- VI 6 A. COUNSELING FOR LIFESTYLE MODIFICATION G M-->
+
+
+	<!-- de: Counseling For Lifestyle Modification c: Given, Member -->
+	<dataValueTemplate dataElement="CFLSMOD" disaggregation="MATQcQq5AV3">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Counseling for Lifestyle Modification")	
+			and 
+			o.value_text = "yes"
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI 6 B. COUNSELING FOR LIFESTYLE MODIFICATION G D-->
+
+	<!-- de: COUNSELING For Lifestyle Modification c: Given, Dependent -->
+	<dataValueTemplate dataElement="CFLSMOD" disaggregation="myfBUBEhsTM">
+	<annotation>
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Counseling for Lifestyle Modification")	
+			and 
+			o.value_text = "yes"
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI 7 A. COUNSELING FOR SMOKING CESSATION G M-->
+
+	<!-- de: COUNSELING For Smoking Cessation c: Given, Member -->
+	<dataValueTemplate dataElement="CFSC" disaggregation="MATQcQq5AV3">
+	<annotation> 
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Counseling for Smoking Cessation")	
+			and 
+			o.value_text = "yes"
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI 7 B. COUNSELING FOR SMOKING CESSATION G D-->
+
+	<!-- de: COUNSELING For Smoking Cessation c: Given, Dependent -->
+	<dataValueTemplate dataElement="CFSC" disaggregation="myfBUBEhsTM">
+	<annotation>
+	 select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Counseling for Smoking Cessation")	
+			and 
+			o.value_text = "yes"	
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI 8 A. BODY MEASUREMENTS G M-->
+
+	
+	<!-- de: Body Measurements c: Given, Member -->
+	<dataValueTemplate dataElement="BM" disaggregation="MATQcQq5AV3">
+	<annotation>
+	 	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			(
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Height (cm)")
+			
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Weight (kg)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name
+						WHERE name = "Waist circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Hip circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "head circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "chest circumference (cm)")
+			)	
+			and 
+			o.value_numeric IS NOT NULL
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI 8 B. BODY MEASUREMENTS G D-->
+
+
+	<!-- de: Body Measurements c: Given, Dependent -->
+	<dataValueTemplate dataElement="BM" disaggregation="myfBUBEhsTM">
+	<annotation>
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			(
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Height (cm)")
+			
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Weight (kg)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name
+						WHERE name = "Waist circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "Hip circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "head circumference (cm)")
+
+			or 
+			o.concept_id IN (SELECT concept_id FROM concept_name 
+						WHERE name = "chest circumference (cm)")
+			)	
+			and 
+			o.value_numeric IS NOT NULL
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI 9 A. DIGITAL RECTAL EXAMINATION G M -->
+
+	<!-- de: Digital Rectal Examination c: Given, Member -->
+	<dataValueTemplate dataElement="DREX" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Digital rectal examination")	
+			and 
+			o.value_text = "yes"	
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI 9 B. DIGITAL RECTAL EXAMINATION G D--> 
+
+	<!-- de: Digital Rectal Examination c: Given, Dependent -->
+	<dataValueTemplate dataElement="DREX" disaggregation="myfBUBEhsTM">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and
+			o.concept_id IN (SELECT concept_id FROM concept_name WHERE name="Digital rectal examination")	
+			and 
+			o.value_text = "yes"		
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI D1 A. COMPLETE BLOOD COUNT G M-->
+
+	
+	<!-- de: Complete Blood Count c: Given, Member -->
+	<dataValueTemplate dataElement="CBC" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" )  and status = "Sent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI D1 B. COMPLETE BLOOD COUNT G D-->
+
+	<!-- de: Complete Blood Count c: Given, Dependent -->
+	<dataValueTemplate dataElement="CBC" disaggregation="myfBUBEhsTM">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count"  ) and status = "Sent")
+	
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI D1 C. COMPLETE BLOOD COUNT R M-->
+	
+	<!-- de: Complete Blood Count c: Referred, Member -->
+	<dataValueTemplate dataElement="CBC" disaggregation="NaXjTi9CCC6">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+	
+
+	<!-- VI D1 D. COMPLETE BLOOD COUNT R D-->
+
+	<!-- de: Complete Blood Count c: Referred, Dependent -->
+	<dataValueTemplate dataElement="CBC" disaggregation="ieraUcKsaLc">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI DX2 A. URINALYSIS G M-->	
+
+	
+	<!-- de: Urinalysis c: Given, Member -->
+	<dataValueTemplate dataElement="URINALY" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Sent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX2 B. URINALYSIS G D-->	
+
+	<!-- de: Urinalysis c: Given, Dependent -->
+	<dataValueTemplate dataElement="URINALY" disaggregation="myfBUBEhsTM">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Sent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX2 C. URINALYSIS R M-->	
+
+	<!-- de: Urinalysis c: Referred, Member -->
+	<dataValueTemplate dataElement="URINALY" disaggregation="NaXjTi9CCC6">
+	<annotation>
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX2 D. URINALYSIS R D-->	
+
+	<!-- de: Urinalysis c: Referred, Dependent -->
+	<dataValueTemplate dataElement="URINALY" disaggregation="ieraUcKsaLc">
+	<annotation>select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+
+
+
+	<!-- VI DX3 A. FECALYSIS G M-->	
+
+	<!-- de: Fecalysis c: Given, Member -->
+	<dataValueTemplate dataElement="FCLY" disaggregation="MATQcQq5AV3">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Sent")
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI DX3 B. FECALYSIS G D-->	
+
+	<!-- de: Fecalysis c: Given, Dependent -->
+	<dataValueTemplate dataElement="FCLY" disaggregation="myfBUBEhsTM">
+	<annotation>
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Sent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX3 C. FECALYSIS R M-->	
+
+	<!-- de: Fecalysis c: Referred, Member -->
+	<dataValueTemplate dataElement="FCLY" disaggregation="NaXjTi9CCC6">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX3 D. FECALYSIS R D-->	
+	
+	<!-- de: Fecalysis c: Referred, Dependent -->
+	<dataValueTemplate dataElement="FCLY" disaggregation="ieraUcKsaLc">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- VI DX4 A. SPUTUM MICROSCOPY G M-->	
+
+	<!-- de: Sputum Microscopy c: Given, Member -->
+
+	<dataValueTemplate dataElement="SPMIC" disaggregation="MATQcQq5AV3">
+	<annotation> 
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Sent")
+	</annotation>
+
+	</dataValueTemplate>
+
+	<!-- VI DX4 B. SPUTUM MICROSCOPY G D-->	
+
+		<!--SPUTUM MICROSCOPY-->	
+	<!-- de: Sputum Microscopy c: Given, Dependent -->
+	<dataValueTemplate dataElement="SPMIC" disaggregation="myfBUBEhsTM">
+
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Sent")	
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI DX4 C. SPUTUM MICROSCOPY R M-->	
+	
+	<!-- de: Sputum Microscopy c: Referred, Member -->
+	<dataValueTemplate dataElement="SPMIC" disaggregation="NaXjTi9CCC6">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI DX4 D. SPUTUM MICROSCOPY R D-->	
+	
+	<!-- de: Sputum Microscopy c: Referred, Dependent -->
+	<dataValueTemplate dataElement="SPMIC" disaggregation="ieraUcKsaLc">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Unsent")
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!--FASTING BLOOD SUGAR-->	
+
+	<!-- VI DX5 A. FASTING BLOOD SUGAR G M-->	
+
+	<!-- de: Fasting Blood Sugar c: Given, Member -->
+	<dataValueTemplate dataElement="FBSUG" disaggregation="MATQcQq5AV3">
+	<annotation>
+	select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Sent")	
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX5 B. FASTING BLOOD SUGAR G D-->	
+
+	<!-- de: Fasting Blood Sugar c: Given, Dependent -->
+	<dataValueTemplate dataElement="FBSUG" disaggregation="myfBUBEhsTM">
+	<annotation> 
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Sent")	
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX5 C. FASTING BLOOD SUGAR R M-->
+	
+	<!-- de: Fasting Blood Sugar c: Referred, Member -->
+	<dataValueTemplate dataElement="FBSUG" disaggregation="NaXjTi9CCC6">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Unsent")	
+</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI DX5 D. FASTING BLOOD SUGAR R D-->	
+
+	<!-- de: Fasting Blood Sugar c: Referred, Dependent -->
+	<dataValueTemplate dataElement="FBSUG" disaggregation="ieraUcKsaLc">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" ) and status = "Unsent")		
+	</annotation>
+	</dataValueTemplate>
+
+	      
+	<!--LIPID PROFILE-->	
+
+	<!-- VI DX6 A. LIPID PROFILE G M-->
+
+	
+	<!-- de: Lipid Profile c: Given, Member -->
+
+	<dataValueTemplate dataElement="LPROF" disaggregation="MATQcQq5AV3">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")	
+	</annotation>
+
+	</dataValueTemplate>
+
+	
+	<!-- VI DX6 B. LIPID PROFILE G D-->	
+
+	<!-- de: Lipid Profile c: Given, Dependent -->
+	<dataValueTemplate dataElement="LPROF" disaggregation="myfBUBEhsTM">
+
+	<annotation> 
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")		
+	</annotation>
+	</dataValueTemplate>
+
+
+	<!-- VI DX6 C. LIPID PROFILE R M-->	
+
+	<!-- de: Lipid Profile c: Referred, Member -->
+	<dataValueTemplate dataElement="LPROF" disaggregation="NaXjTi9CCC6">
+	<annotation>
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Unsent")	
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX6 D. LIPID PROFILE R D-->	
+
+	<!-- de: Lipid Profile c: Referred, Dependent -->
+	<dataValueTemplate dataElement="LPROF" disaggregation="ieraUcKsaLc">
+	<annotation> 
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Unsent")	
+	</annotation>
+	</dataValueTemplate>
+
+
+
+	<!-- CHEST X-RAY -->
+	<!-- VI DX7 A. CHEST X-RAY G M-->
+
+	
+	<!-- de: Chest X-Ray c: Given, Member -->
+	<dataValueTemplate dataElement="CXRAY" disaggregation="MATQcQq5AV3">
+	<annotation> 
+			select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")	
+	</annotation>
+	</dataValueTemplate>
+	
+	<!-- VI DX7 B. CHEST X-RAY G D-->	
+
+	<!-- de: Chest X-Ray c: Given, Dependent -->
+	<dataValueTemplate dataElement="CXRAY" disaggregation="myfBUBEhsTM">
+
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")	
+	</annotation>
+	</dataValueTemplate>
+
+	<!-- VI DX7 C. CHEST X-RAY R M-->
+
+	<!-- de: Chest X-Ray c: Referred, Member -->
+	<dataValueTemplate dataElement="CXRAY" disaggregation="NaXjTi9CCC6">
+	<annotation>
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id NOT IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Unsent")	
+
+	</annotation>
+	</dataValueTemplate>
+	
+	<!-- VI DX7 D. CHEST X-RAY R D-->	
+	
+	<!-- de: Chest X-Ray c: Referred, Dependent -->
+	<dataValueTemplate dataElement="CXRAY" disaggregation="ieraUcKsaLc">
+	<annotation> 
+		select count(distinct o.person_id)
+		      from obs o
+			inner join person p on o.person_id = p.person_id
+		      where p.voided = 0 and o.voided = 0
+			 
+		      and (o.obs_datetime >= :startOfPeriod
+		      or o.obs_datetime &lt;= :endOfPeriod)
+		      and o.location_id = :locationId
+
+			and o.person_id IN (SELECT pa.person_id 
+	FROM person_attribute pa
+	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
+	)
+and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
+	and voided = 0
+	)		
+			
+			and o.person_id IN (
+			SELECT pa.person_id FROM person_attribute pa WHERE
+	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+			and voided = 0)
+
+			
+			and o.person_id IN (
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Unsent")	
+	
+	</annotation>
+	</dataValueTemplate>
+
+
+
+
+
+
+
+
+</dataValueTemplates>
+
+    </reportTemplate>
+     
+</reportTemplates>
