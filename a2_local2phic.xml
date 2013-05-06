@@ -22,7 +22,7 @@
 		
 
 
-		<dataElement uid="G4NrNlL03Gf" code="HCFACILITYNAME" name="Name of Healthcare Facility" type="string"/>
+		<dataElement uid="QL5qRrg365M" code="NAMEHEALTHFACILITY" name="Name of Health Facility" type="string"/>
 		<dataElement uid="qYckN1KcdmJ1q" code="REGION" name="Region" type="String"/>
 		<dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
 		<dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
@@ -40,7 +40,7 @@
      	</dataElements>
 
      	<disaggregations>
-		<disaggregation uid="DtAFkwoCzGW" code="DtAFkwoCzGW" name="default"/>
+		<disaggregation uid="RKzJPvA6jNf" code="RKzJPvA6jNf" name="default"/>
 	  	<disaggregation uid="qYSsxO6u0zf" code="qYSsxO6u0zf" name="0 - 1 Years, Male"/>
 	  	<disaggregation uid="YDEW3nm5WC7" code="YDEW3nm5WC7" name="0 - 1 Years, Female"/>
 	  	<disaggregation uid="cOxEffR1G4w" code="cOxEffR1G4w" name="2 - 5 Years, Male"/>
@@ -84,7 +84,7 @@
 
 	<!-- O.  HEALTHCARE FACILITY  (using description) -->
 
-	<dataValueTemplate dataElement="HCFACILITYNAME" disaggregation="DtAFkwoCzGW">
+	<dataValueTemplate dataElement="NAMEHEALTHFACILITY" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select description
       	from location l
@@ -97,7 +97,7 @@
 
 	<!-- I-A.  REGION  (using address2) -->
 
-	 <dataValueTemplate dataElement="REGION" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="REGION" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select address6
       	from location l
@@ -110,7 +110,7 @@
 
 	<!-- I-B.  PROVINCE (using state_province) -->
 
-	 <dataValueTemplate dataElement="PROVINCE" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="PROVINCE" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select state_province
       	from location l
@@ -123,7 +123,7 @@
 
 	<!-- I-C.  CITY/MUNICIPALITY (using city_village) -->
 
-	 <dataValueTemplate dataElement="CITY_MUNICIPALITY" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="CITY_MUNICIPALITY" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select city_village
       	from location
@@ -137,7 +137,7 @@
 
 	<!-- I-D.  NO. OF ASSIGNED FAMILIES -->
 
-	 <dataValueTemplate dataElement="FAMILIESASSIGNED" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="FAMILIESASSIGNED" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select count(distinct ff.code)
 		      from chits_family_folder ff
@@ -154,7 +154,7 @@
 
 	 <!-- I-H.  SP - NHTS Member (using sponsor = NATIONAL) -->
 
-	 <dataValueTemplate dataElement="SPNHTS" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="SPNHTS" disaggregation="RKzJPvA6jNf">
            <annotation>
 		 Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -185,7 +185,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	
 	<!-- I-F.  SP - LGU (using sponsor = LGU) -->
 
-	 <dataValueTemplate dataElement="SPLGU" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="SPLGU" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -211,7 +211,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 	<!-- I-F.  SP - NGA (using sponsor = EMPLOYER?)-->
 
-	 <dataValueTemplate dataElement="SPNGA" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="SPNGA" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -236,7 +236,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 	<!-- I-G.  SP - PRIVATE  (using sponsor = Private)-->
 
-	 <dataValueTemplate dataElement="SPPRIVATE" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="SPPRIVATE" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -261,7 +261,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 	<!-- I-H.  IPP - OG (using sponsor = IPP) -->
 
-	 <dataValueTemplate dataElement="IPPOG" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="IPPOG" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -286,7 +286,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 	<!-- I-I.  IPP - OFW -->
 
-	 <dataValueTemplate dataElement="IPPOFW" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="IPPOFW" disaggregation="RKzJPvA6jNf">
            <annotation>
       	      Select count(distinct pa.person_id) 
 	from person_attribute pa
@@ -311,7 +311,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 	<!-- I-J.  NON-PHIC MEMBERS -->
 
-	 <dataValueTemplate dataElement="NONPHICMEMBERS" disaggregation="DtAFkwoCzGW">
+	 <dataValueTemplate dataElement="NONPHICMEMBERS" disaggregation="RKzJPvA6jNf">
            <annotation>
 		select count(distinct pa.person_id) from person_attribute pa 
 		inner join obs o on pa.person_id = o.person_id 
