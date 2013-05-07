@@ -3,35 +3,35 @@
      
      <dataElements>
 
-          <dataElement uid="YaICd87mYnY" code="BFPEDU" name="breast_feeding_education" type="int"/>
-<dataElement uid="E5UtDfKHfUJ" code="CFLSMOD" name="COUNSELING_lf_modification" type="int"/>
-<dataElement uid="QRckDStPBaP" code="CFSC" name="COUNSELING_fs_cessation" type="int"/>
-<dataElement uid="uANsvN7N9c1" code="BM" name="body_measurments" type="int"/>
-<dataElement uid="kqmtb3QTUn1" code="DREX" name="digital_rectal_examination" type="int"/>
-<dataElement uid="i5QnWxFrvy0" code="CBC" name="complete_blood_count" type="int"/>
+          <dataElement uid="HAAmlK8a8Kz" code="BFPEDU" name="Breastfeeding Program Education" type="int"/>
+<dataElement uid="RTl5mPvpksT" code="CFLSMOD" name="Counselling for lifestyle modification" type="int"/>
+<dataElement uid="PuT0ufKGINQ" code="CFSC" name="Counselling for smoking cessation" type="int"/>
+<dataElement uid="nuIxJr4vLpY" code="BM" name="Body measurements" type="int"/>
+<dataElement uid="w1vhtqyBm9P" code="DREX" name="Digital Rectal Examination" type="int"/>
+<dataElement uid="t4G5Vy61EAT" code="CBC" name="Complete Blood Count" type="int"/>
 
-<dataElement uid="qMtyVCYyDtu" code="FCLY" name="fecalysis" type="int"/>
-<dataElement uid="bkUWVHERnZI" code="SPMIC" name="sputum_microscopy" type="int"/>
+<dataElement uid="a5P1EQa8K0h" code="FCLY" name="Fecalysis" type="int"/>
+<dataElement uid="L6QO1We0kZn" code="SPMIC" name="Sputum Microscopy" type="int"/>
 
-<dataElement uid="jBDWhnpjCIN" code="FBSUG" name="fasting_blood_sugar" type="int"/>
-<dataElement uid="XJgbvoKkueQ" code="LPROF" name="lipid_profile" type="int"/>
+<dataElement uid="QEsqit8TEFb" code="FBSUG" name="Fasting Blood Sugar" type="int"/>
+<dataElement uid="kR3CKnUI51F" code="LPROF" name="Lipid Profile " type="int"/>
 
-<dataElement uid="xOAnM12uS8c" code="CXRAY" name="chest_x_ray" type="int"/>
-<dataElement uid="qSFycli6qm5" code="MEMBERS" name="members" type="int"/>
-<dataElement uid="rUla1wQOge8" code="CONSU" name="consultation" type="int"/>
-<dataElement uid="jGbF1XY4W6B" code="URINALY" name="urinalysis" type="int"/>
-<dataElement uid="FFLmxaPR8NM" code="DEPNDS" name="dependents" type="int"/>
-<dataElement uid="j7cIGxFp9jr" code="PCBEX" name="periodic_cb_examination" type="int"/>
-<dataElement uid="Eu0DgSxhXL4" code="VIWAA" name="visual_iw_acetic_acid" type="int"/>
-<dataElement uid="FiUOyyczmjX" code="OTHBPM" name="obligated_thbp_measurement" type="int"/>
-<dataElement uid="LHcttC1qtTn" code="RBPM" name="regular_bp_measurment" type="int"/>
-<dataElement uid="T3QRYUfWIEz" code="OTPCBE" name="obligated_tpcb_examination" type="int"/>
-<dataElement uid="b1zdv5AOYJ7" code="OTVIWAA" name="obligated_tviw_acetic_acid" type="int"/>
-<dataElement uid="WofRHiIpUPF" code="OTNHBPM" name="obligated_tnhbp_measurement" type="int"/>
-<dataElement uid="Cjgc8TwLzCf" code="OAVIWAA" name="obligated_aviw_acetic_acid" type="int"/>
-<dataElement uid="Rr5Nnt7f6L1" code="OAPCBE" name="obligated_apcb_examination" type="int"/>
-<dataElement uid="l97GXcmIyRB" code="OANHBPM" name="obligated_anhbp_measurement" type="int"/>
-<dataElement uid="a6A97IKNddq" code="OAHBPM" name="obligated_ahbp_measurement" type="int"/>
+<dataElement uid="Lbet2CYNK36" code="CXRAY" name="Chest X-Ray" type="int"/>
+<dataElement uid="L98ovMQnYdT" code="MEMBERS" name="members" type="int"/>
+<dataElement uid="e53GxHPT4Kh" code="CONSU" name="Consultation" type="int"/>
+<dataElement uid="nqaYpMZqNDy" code="URINALY" name="Urinalysis" type="int"/>
+<dataElement uid="FFLmxaPR8NM" code="DEPNDS" name="Dependents" type="int"/>
+<dataElement uid="lete0wu7xDK" code="PCBEX" name="Periodic clinical breast examination" type="int"/>
+<dataElement uid="bkeKrklaWli" code="VIWAA" name="Visual Inspection with Acetic Acid" type="int"/>
+<dataElement uid="l7DHoJcQoQS" code="OTHBPM" name="Obligated Target Hypertensive BP Measurement" type="int"/>
+<dataElement uid="FdXvwwJgqJg" code="RBPM" name="Regular BP Measurement" type="int"/>
+<dataElement uid="mNHn69WbUuK" code="OTPCBE" name="Obligated Target Periodic Clinical Breast Examination" type="int"/>
+<dataElement uid="b1zdv5AOYJ7" code="OTVIWAA" name="Obligated Target Visual Inspection with Acetic Acid" type="int"/>
+<dataElement uid="TBUeG5Fk6rQ" code="OTNHBPM" name="Obligated Target Non-hypertensive BP Measurement" type="int"/>
+<dataElement uid="Cjgc8TwLzCf" code="OAVIWAA" name="Obligated Accomplishment Visual Inspection with Acetic Acid" type="int"/>
+<dataElement uid="paZqkLNSRmi" code="OAPCBE" name="Obligated Accomplishment Periodic Clinical Breast Examination" type="int"/>
+<dataElement uid="VU2FxpChAGB" code="OANHBPM" name="obligated_anhbp_measurement" type="int"/>
+<dataElement uid="f2R7BDsMIB4" code="OAHBPM" name="obligated_ahbp_measurement" type="int"/>
 
 <dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
 <dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
