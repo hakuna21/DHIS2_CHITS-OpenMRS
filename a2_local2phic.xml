@@ -81,8 +81,7 @@
 
 	<dataValueTemplates>
   	 
-
-	<!-- O.  HEALTHCARE FACILITY  (using description) -->
+  	 <!-- O.  HEALTHCARE FACILITY  (using description) -->
 
 	<dataValueTemplate dataElement="NAMEHEALTHFACILITY" disaggregation="RKzJPvA6jNf">
            <annotation>
@@ -162,7 +161,7 @@
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR'
 )
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='NATIONAL')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='NATIONAL' LIMIT 1)
 	
 
 
@@ -192,7 +191,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	inner join obs o  on  pa.person_id = o.person_id
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='LGU')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='LGU' LIMIT 1)
 
 
 	and pa.person_id IN (SELECT pa.person_id 
@@ -218,7 +217,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	inner join obs o  on  pa.person_id = o.person_id
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='EMPLOYER')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='EMPLOYER' LIMIT 1)
 
 	and pa.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -243,7 +242,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	inner join obs o  on  pa.person_id = o.person_id
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='Private')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='Private' LIMIT 1)
 
 	and pa.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -268,7 +267,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	inner join obs o  on  pa.person_id = o.person_id
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='IPP')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='IPP' LIMIT 1)
 
 	and pa.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -293,7 +292,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	inner join obs o  on  pa.person_id = o.person_id
 	where pa.voided = 0 and o.voided = 0
 	and pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_SPONSOR')
-	and pa.value IN (SELECT concept_id from concept_name WHERE name='PHIC IPP, OFW')
+	and pa.value = (SELECT concept_id from concept_name WHERE name='PHIC IPP, OFW' LIMIT 1)
 
 	and pa.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -644,7 +643,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 		    </annotation>
 	       </dataValueTemplate>
-	
+	       
+	       
+	       
 		
 		<!-- III. PRIMARY PREVENTIVE SERVICES -->
 
@@ -654,7 +655,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      select count(distinct o.person_id)
 		      from obs o
 		      where o.voided = 0
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - breast examination")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="Date of report - breast examination" LIMIT 1)
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -669,7 +670,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
 		
@@ -683,7 +684,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      select count(distinct o.person_id)
 		      from obs o
 		      where o.voided = 0
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - breast examination")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="Date of report - breast examination" LIMIT 1)
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -698,7 +699,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
 		    </annotation>
@@ -727,7 +728,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and p.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
 		    </annotation>
@@ -756,7 +757,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and p.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 		    </annotation>
@@ -768,7 +769,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      select count(distinct o.person_id)
 		      from obs o
 		      where o.voided = 0
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control" LIMIT 1)
 		   	and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -784,7 +785,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
 		    </annotation>
@@ -796,7 +797,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      select count(distinct o.person_id)
 		      from obs o
 		      where o.voided = 0
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="Date of report - Cervical cancer control" LIMIT 1)
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -812,7 +813,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 		    </annotation>
@@ -836,7 +837,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 		
 			and o.person_id NOT IN 
-				(SELECT person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Uterus, not intact')
+				(SELECT person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Uterus, not intact' LIMIT 1)
 				and o.value_text = 'yes')
 
 
@@ -850,7 +851,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member'  LIMIT 1)
 		and voided = 0
 			)
 		    </annotation>
@@ -873,7 +874,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 		
 			and o.person_id NOT IN 
-				(SELECT person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Uterus, not intact')
+				(SELECT person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Uterus, not intact'  LIMIT 1)
 				and o.value_text = 'yes')
 
 			and o.person_id IN (SELECT pa.person_id 
@@ -885,7 +886,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member'  LIMIT 1)
 	and voided = 0
 			)
 		    </annotation>
@@ -917,7 +918,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member'  LIMIT 1)
 	and voided = 0
 			)
 
@@ -926,19 +927,19 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			( 
 			o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyuria' LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polydipsia'  LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyphagia' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='faltering weight' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			)
@@ -977,19 +978,19 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			( 
 			o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyuria' LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polydipsia'  LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyphagia' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='faltering weight' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			)
@@ -1028,19 +1029,19 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			( 
 			o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyuria' LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polydipsia'  LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyphagia' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='faltering weight' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			)
@@ -1079,19 +1080,19 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			( 
 			o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyuria')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyuria' LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polydipsia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polydipsia'  LIMIT 1)
 				and o.value_text = 'yes')
 
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Polyphagia')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Polyphagia' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			or o.person_id IN 
-				(SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='faltering weight')
+				(SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='faltering weight' LIMIT 1)
 				and o.value_text = 'yes')
 			
 			)
@@ -1122,7 +1123,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 
@@ -1134,7 +1135,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric >= 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1165,7 +1166,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 
@@ -1177,7 +1178,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric >= 80 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1207,7 +1208,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 
@@ -1219,7 +1220,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric >= 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1249,7 +1250,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	)
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
 
@@ -1260,7 +1261,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric >= 80 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumference (cm)" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1298,14 +1299,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+o.concept_id = (SELECT concept_id FROM concept_name where name='diabetes mellitus' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -1339,14 +1340,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+o.concept_id = (SELECT concept_id FROM concept_name where name='diabetes mellitus' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -1380,14 +1381,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 		and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+o.concept_id = (SELECT concept_id FROM concept_name where name='diabetes mellitus' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -1423,14 +1424,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 		and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='diabetes mellitus')
+o.concept_id = (SELECT concept_id FROM concept_name where name='diabetes mellitus' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -1467,14 +1468,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
 
 		    </annotation>
@@ -1503,13 +1504,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
 		    </annotation>
 	       </dataValueTemplate>
@@ -1538,13 +1539,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
 		    </annotation>
 	       </dataValueTemplate>
@@ -1557,7 +1558,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -1574,21 +1575,20 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Oral hypoglycemic agent'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
 		    </annotation>
 	       </dataValueTemplate>
-			 
-
-
-		<!-- V. HYPERTENSION -->
+	       
+	       
+	       <!-- V. HYPERTENSION -->
 
 		<!-- V-A.  ADULT WITH BP < 140/90 mmHg -->
 
@@ -1617,7 +1617,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
@@ -1627,7 +1627,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1641,7 +1641,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1674,13 +1674,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -1692,7 +1692,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1706,7 +1706,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1737,13 +1737,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -1755,7 +1755,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1769,7 +1769,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1801,7 +1801,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			
@@ -1813,7 +1813,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1827,7 +1827,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1858,13 +1858,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -1876,7 +1876,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1890,7 +1890,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1921,20 +1921,20 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -1946,7 +1946,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 o.value_numeric &lt; 140 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -1960,7 +1960,7 @@ GROUP BY person_id )
 o.value_numeric &lt; 90 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
 			
@@ -1996,7 +1996,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
@@ -2010,7 +2010,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2025,7 +2025,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2058,13 +2058,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2079,7 +2079,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2094,7 +2094,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2127,13 +2127,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2148,7 +2148,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2163,7 +2163,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2195,7 +2195,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			
@@ -2209,7 +2209,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2224,7 +2224,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2256,13 +2256,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2277,7 +2277,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2292,7 +2292,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2324,13 +2324,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2345,7 +2345,7 @@ and o.value_numeric &lt; 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2360,7 +2360,7 @@ and o.value_numeric &lt; 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2395,7 +2395,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
@@ -2406,7 +2406,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2420,7 +2420,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2452,13 +2452,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			and 
@@ -2469,7 +2469,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2483,7 +2483,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2498,7 +2498,7 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
@@ -2516,13 +2516,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			and 
@@ -2533,7 +2533,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2547,7 +2547,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2578,7 +2578,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
@@ -2589,7 +2589,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2603,7 +2603,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2634,13 +2634,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			and 
@@ -2651,7 +2651,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2665,7 +2665,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2696,13 +2696,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 			
 			and 
@@ -2713,7 +2713,7 @@ o.value_numeric >= 180
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2727,7 +2727,7 @@ o.value_numeric >= 120
 and
 
 			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id IN (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure")
+concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 
 			)
@@ -2761,14 +2761,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -2804,13 +2804,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2818,7 +2818,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -2853,13 +2853,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
@@ -2867,7 +2867,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -2903,14 +2903,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 			
 			and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -2945,13 +2945,13 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 
@@ -2959,7 +2959,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -2994,20 +2994,20 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			and 
 			o.person_id IN 
 				(SELECT o.person_id FROM obs o WHERE 
 
-o.concept_id IN (SELECT concept_id FROM concept_name where name='hypertension')
+o.concept_id = (SELECT concept_id FROM concept_name where name='hypertension' LIMIT 1)
 
 and o.value_text = 'yes' 
 and o.obs_group_id IN 
@@ -3047,14 +3047,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 		    </annotation>
 	       </dataValueTemplate>  
@@ -3083,21 +3083,21 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 
 		    </annotation>
@@ -3111,11 +3111,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Diabetes"
-			and o.obs_group_id IN 
-				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
-				and o.value_text = 'Local Health Center')
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
 		      and o.location_id = :locationId
@@ -3131,21 +3128,21 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id NOT IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 		    </annotation>
 	       </dataValueTemplate>
@@ -3158,12 +3155,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Diabetes"
-			and o.obs_group_id IN 
-				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
-				and o.value_text = 'Local Health Center')
-		      and (o.obs_datetime >= :startOfPeriod
+			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
 		      and o.location_id = :locationId
 			
@@ -3178,14 +3172,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 		    </annotation>
 	       </dataValueTemplate>    
@@ -3198,12 +3192,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Diabetes"
-			and o.obs_group_id IN 
-				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
-				and o.value_text = 'Local Health Center')
-		      and (o.obs_datetime >= :startOfPeriod
+			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
 		      and o.location_id = :locationId
 			
@@ -3218,20 +3209,20 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			and 
 			o.person_id NOT IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 
 		    </annotation>
@@ -3245,12 +3236,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id IN (SELECT concept_id FROM concept_name where name="NCD Program tag")
+		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Diabetes"
-			and o.obs_group_id IN 
-				(SELECT obs_group_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='name of institution')
-				and o.value_text = 'Local Health Center')
-		      and (o.obs_datetime >= :startOfPeriod
+			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
 		      and o.location_id = :locationId
 			
@@ -3265,27 +3253,28 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT pa.person_id FROM person_attribute pa WHERE
-	pa.value IN (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member')
+	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
 		
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='consult status') and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='consult status' LIMIT 1) and o.value_text IN ('CHITS Maternal Care - Active','CHITS Lying-in Admitted')
 			)
 
 			
 			and 
 			o.person_id IN 
 			(
-				SELECT o.person_id FROM obs o WHERE o.concept_id IN (SELECT concept_id FROM concept_name where name='Reason for taking the medication') and o.value_text = 'Antihypertensive'
+				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
 
 		    </annotation>
 	       </dataValueTemplate>
-			     
-
-	  </dataValueTemplates>
+	       
+	   
+  	 
+	</dataValueTemplates>
     </reportTemplate>
 </reportTemplates>
