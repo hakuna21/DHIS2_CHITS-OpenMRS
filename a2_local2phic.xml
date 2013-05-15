@@ -2001,34 +2001,38 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		
 			
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+		and
+		(
+		o.person_id IN
+		
+					(
+							SELECT o.person_id FROM obs o WHERE 
+		o.value_numeric >= 140 
+		and o.value_numeric &lt; 180
+		and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+					obs_id IN (SELECT max(obs_id) FROM obs WHERE
+		concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+		GROUP BY person_id )
 
-			)
+					)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+					or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+					o.person_id IN
+					(
+							SELECT o.person_id FROM obs o WHERE 
+		o.value_numeric >= 90 
+		and o.value_numeric &lt; 120
+		and
 
-			)
+					obs_id IN (SELECT max(obs_id) FROM obs WHERE
+		concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+		GROUP BY person_id )
+
+					)
+		)
 
 		    </annotation>
 	       </dataValueTemplate>  
@@ -2070,33 +2074,37 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			
 			
-			and 
-			o.person_id IN
+			and
 			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+			o.person_id IN
+		
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 140 
+			and o.value_numeric &lt; 180
+			and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
 
-			)
+						)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+						or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						o.person_id IN
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 90 
+			and o.value_numeric &lt; 120
+			and
 
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
+
+						)
 			)
 
 		    </annotation>
@@ -2139,33 +2147,37 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			
 			
-			and 
-			o.person_id IN
+			and
 			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+			o.person_id IN
+		
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 140 
+			and o.value_numeric &lt; 180
+			and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
 
-			)
+						)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+						or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						o.person_id IN
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 90 
+			and o.value_numeric &lt; 120
+			and
 
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
+
+						)
 			)
 
 		    </annotation>
@@ -2200,33 +2212,37 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			
-			and 
-			o.person_id IN
+			and
 			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+			o.person_id IN
+		
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 140 
+			and o.value_numeric &lt; 180
+			and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
 
-			)
+						)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+						or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						o.person_id IN
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 90 
+			and o.value_numeric &lt; 120
+			and
 
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
+
+						)
 			)
 
 		    </annotation>
@@ -2268,35 +2284,38 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			
 			
-			and 
-			o.person_id IN
+			and
 			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+			o.person_id IN
+		
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 140 
+			and o.value_numeric &lt; 180
+			and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
 
-			)
+						)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+						or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						o.person_id IN
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 90 
+			and o.value_numeric &lt; 120
+			and
 
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
+
+						)
 			)
-
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2336,33 +2355,37 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			
 			
-			and 
-			o.person_id IN
+			and
 			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 140 
-and o.value_numeric &lt; 180
-and
+			o.person_id IN
+		
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 140 
+			and o.value_numeric &lt; 180
+			and
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
 
-			)
+						)
 
 			
-			and 
-			o.person_id IN
-			(
-					SELECT o.person_id FROM obs o WHERE 
-o.value_numeric >= 90 
-and o.value_numeric &lt; 120
-and
+						or
 
-			obs_id IN (SELECT max(obs_id) FROM obs WHERE
-concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
-GROUP BY person_id )
+						o.person_id IN
+						(
+								SELECT o.person_id FROM obs o WHERE 
+			o.value_numeric >= 90 
+			and o.value_numeric &lt; 120
+			and
 
+						obs_id IN (SELECT max(obs_id) FROM obs WHERE
+			concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
+			GROUP BY person_id )
+
+						)
 			)
 
 		    </annotation>
