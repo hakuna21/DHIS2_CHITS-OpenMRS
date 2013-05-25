@@ -33,8 +33,20 @@
 <dataElement uid="VU2FxpChAGB" code="OANHBPM" name="obligated_anhbp_measurement" type="int"/>
 <dataElement uid="f2R7BDsMIB4" code="OAHBPM" name="obligated_ahbp_measurement" type="int"/>
 
-<dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
-<dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
+<dataElement uid="myBvDKLgcql" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
+<dataElement uid="xqdkF5xZD4l" code="PROVINCE" name="Province" type="String"/>
+
+
+
+<dataElement uid="vAz3Z9hxBmX" code="PERIOD" name="Period" type="date"/>
+<dataElement uid="lt8KtZ5tNae" code="PARTICIPATIONNUM" name="Participation Number" type="date"/>
+
+<dataElement uid="XOjh0tnr0Bz" code="CAUSEOFMORBIDITY" name="Cause Of Morbidity" type="date"/>
+<dataElement uid="UgG4jYeaB5v" code="MORBIDITYCOUNT" name="Morbidity Count" type="int"/>
+
+<dataElement uid="lt8KtZ5tNae" code="PARTICIPATIONNUM" name="Participation Number" type="String"/>
+
+
      </dataElements>
 
      
@@ -54,6 +66,22 @@
 <!-- Default -->
 <disaggregation uid="beBubnoFLUo" code="beBubnoFLUo" name="default"/>
 
+
+<!-- PCB A4 Form, Start -->
+<disaggregation uid="XaWGdBZCE67" code="XaWGdBZCE67" name="PCB A4 Form, Start"/>
+<!-- PCB A4 Form, End -->
+<disaggregation uid="t5KCPK2YLn8" code="t5KCPK2YLn8" name="PCB A4 Form, End"/>
+
+<disaggregation uid="A9WHp1CXQOY" code="A9WHp1CXQOY" name="top 1"/>
+<disaggregation uid="Ry4qQ4T8js0" code="Ry4qQ4T8js0" name="top 2"/>
+<disaggregation uid="PYCeUPRaJuu" code="PYCeUPRaJuu" name="top 3"/>
+<disaggregation uid="k6aJTB6lda1" code="k6aJTB6lda1" name="top 4"/>
+<disaggregation uid="IYqcrgmAUul" code="IYqcrgmAUul" name="top 5"/>
+<disaggregation uid="RGiQVsIgzrS" code="RGiQVsIgzrS" name="top 6"/>
+<disaggregation uid="b1dIlk8UlUx" code="b1dIlk8UlUx" name="top 7"/>
+<disaggregation uid="PJkCEmXMcdo" code="PJkCEmXMcdo" name="top 8"/>
+<disaggregation uid="v8EQFoJn9lN" code="v8EQFoJn9lN" name="top 9"/>
+<disaggregation uid="jjudPUevAqu" code="jjudPUevAqu" name="top 10"/>
      </disaggregations>
     
   
@@ -65,7 +93,6 @@
 <dataValueTemplates>
      
 
-
 	<!-- III-B.  PROVINCE (using state_province) -->
 
 	 <dataValueTemplate dataElement="PROVINCE" disaggregation="beBubnoFLUo">
@@ -73,8 +100,8 @@
       	       select state_province
       	from location l
       	where l.retired = 0 
-        or l.date_created >= :startOfPeriod
-      	or l.date_created &lt;= :endOfPeriod
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
       	and l.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>     
@@ -86,8 +113,8 @@
       	       select city_village
       	from location
       	where retired = 0 
-        or date_created >= :startOfPeriod
-      	or date_created &lt;= :endOfPeriod
+        and (date_created >= :startOfPeriod
+      	or date_created &lt;= :endOfPeriod)
       	and location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
@@ -106,7 +133,7 @@
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -128,6 +155,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		</annotation>
 	</dataValueTemplate>
 
@@ -145,7 +173,7 @@ ORDER BY obs_id DESC )
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -173,7 +201,7 @@ ORDER BY obs_id DESC )
 
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 
-			
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -191,7 +219,7 @@ ORDER BY obs_id DESC )
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -214,6 +242,7 @@ and o.obs_group_id IN
 ORDER BY obs_id DESC )
 )	
 	
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -231,7 +260,7 @@ ORDER BY obs_id DESC )
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -260,7 +289,7 @@ ORDER BY obs_id DESC )
 
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1)
 
-	
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -278,7 +307,7 @@ ORDER BY obs_id DESC )
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -291,6 +320,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Breast Cancer"
 
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -310,7 +340,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -326,7 +356,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		
 			and 
 			o.value_text = "Clinical breast examination" 
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -343,7 +373,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -356,7 +386,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
 		   	and o.value_text = "NCDM - Cervical Cancer"
 
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -375,7 +405,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -391,7 +421,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		
 			and 
 			o.value_coded = (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done" LIMIT 1)	
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -413,7 +443,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -429,7 +459,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -447,7 +477,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -463,7 +493,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
-	
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>	
 
@@ -484,7 +514,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -500,7 +530,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -518,7 +548,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -534,7 +564,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -553,7 +583,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -568,6 +598,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>	
 
@@ -584,7 +615,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -599,6 +630,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT pa.person_id FROM person_attribute pa WHERE
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 			and voided = 0)
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -616,7 +648,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -639,7 +671,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and 
 			o.value_coded = (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done" LIMIT 1)	
 
-
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -655,7 +687,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -675,7 +707,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done" LIMIT 1)	
 		
 			and 
-			o.value_coded = (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done" LIMIT 1)	
+			o.value_coded = (SELECT concept_id FROM concept_name WHERE name="Visual Inspection with Acetic Acid done" LIMIT 1)
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 
@@ -695,7 +729,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -714,6 +748,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT person_id from obs where value_numeric IS NOT NULL and concept_id = (SELECT concept_id from concept_name where name = "Systolic Blood Pressure" LIMIT 1) 
 group by person_id having count(concept_id)>1
 			)
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -731,7 +767,7 @@ group by person_id having count(concept_id)>1
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -750,6 +786,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			SELECT person_id from obs where value_numeric IS NOT NULL and concept_id = (SELECT concept_id from concept_name where name = "Systolic Blood Pressure" LIMIT 1) 
 group by person_id having count(concept_id)>1
 			)
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -766,7 +804,7 @@ group by person_id having count(concept_id)>1
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -782,6 +820,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and voided = 0)
 
 			and o.concept_id = (SELECT concept_id from concept_name where name = "Breastfeeding Program Education" LIMIT 1) and o.value_text = "yes"
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -798,7 +838,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -814,6 +854,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and voided = 0)
 
 			and o.concept_id = (SELECT concept_id from concept_name where name = "Breastfeeding Program Education" LIMIT 1) and o.value_text = "yes"
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -833,7 +875,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -852,6 +894,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Type of breast examination done" LIMIT 1)	
 			and 
 			o.value_text = "Clinical breast examination" 
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -868,7 +912,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -887,6 +931,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Type of breast examination done" LIMIT 1)	
 			and 
 			o.value_text = "Clinical breast examination" 
+
+		      and o.location_id = :locationId
 		</annotation>
 	</dataValueTemplate>
 
@@ -906,7 +952,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -925,6 +971,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Counseling for Lifestyle Modification" LIMIT 1)	
 			and 
 			o.value_text = "yes"
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -940,7 +988,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -959,6 +1007,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Counseling for Lifestyle Modification" LIMIT 1)	
 			and 
 			o.value_text = "yes"
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -976,7 +1026,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -995,6 +1045,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Counseling for Smoking Cessation" LIMIT 1)	
 			and 
 			o.value_text = "yes"
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1010,7 +1062,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1029,6 +1081,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Counseling for Smoking Cessation" LIMIT 1)	
 			and 
 			o.value_text = "yes"	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1046,7 +1100,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1089,7 +1143,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name 
 						WHERE name = "chest circumference (cm)" LIMIT 1)
 			)	
-			
+		      and o.location_id = :locationId			
 	</annotation>
 	</dataValueTemplate>
 
@@ -1108,7 +1162,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1151,6 +1205,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name 
 						WHERE name = "chest circumference (cm)" LIMIT 1)
 			)
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1167,7 +1223,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1186,6 +1242,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Digital rectal examination" LIMIT 1)	
 			and 
 			o.value_text = "yes"	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1203,7 +1261,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1221,7 +1279,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and
 			o.concept_id = (SELECT concept_id FROM concept_name WHERE name="Digital rectal examination" LIMIT 1)	
 			and 
-			o.value_text = "yes"		
+			o.value_text = "yes"	
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 
@@ -1239,7 +1299,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1257,6 +1317,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" )  and status = "Sent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1272,7 +1334,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1291,6 +1353,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count"  ) and status = "Sent")
 	
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1306,7 +1369,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1324,6 +1387,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 	
@@ -1340,7 +1405,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1358,6 +1423,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Complete Blood Count" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1376,7 +1443,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1394,6 +1461,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Sent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1409,7 +1478,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1427,6 +1496,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Sent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1442,7 +1513,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1460,6 +1531,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1474,7 +1547,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1492,6 +1565,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Urinalysis" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1510,7 +1585,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1528,6 +1603,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Sent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1544,7 +1621,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1562,6 +1639,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Sent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1577,7 +1656,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1595,6 +1674,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1610,7 +1691,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1628,6 +1709,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fecalysis" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1646,7 +1729,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1664,6 +1747,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Sent")
+		      and o.location_id = :locationId
 	</annotation>
 
 	</dataValueTemplate>
@@ -1682,7 +1766,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1700,6 +1784,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Sent")	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1716,7 +1802,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1733,6 +1819,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1749,7 +1837,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1767,6 +1855,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Direct Sputum Smear Microscopy" ) and status = "Unsent")
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1785,7 +1875,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1803,6 +1893,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Sent")	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -1818,7 +1910,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1835,7 +1927,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Sent")	
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Sent")
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 
@@ -1851,7 +1945,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1868,7 +1962,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Unsent")	
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" )  and status = "Unsent")
+
+		      and o.location_id = :locationId	
 </annotation>
 	</dataValueTemplate>
 
@@ -1885,7 +1981,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1902,7 +1998,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" ) and status = "Unsent")		
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Fasting Blood Sugar" ) and status = "Unsent")	
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 
@@ -1923,7 +2021,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1940,7 +2038,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")	
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")
+
+		      and o.location_id = :locationId	
 	</annotation>
 
 	</dataValueTemplate>
@@ -1959,7 +2059,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1976,7 +2076,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")		
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Sent")
+
+		      and o.location_id = :locationId		
 	</annotation>
 	</dataValueTemplate>
 
@@ -1993,7 +2095,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2011,6 +2113,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Unsent")	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -2026,7 +2130,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2044,6 +2148,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="Lipid Profile" )  and status = "Unsent")	
+
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
@@ -2063,7 +2169,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2080,7 +2186,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")	
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 	
@@ -2097,7 +2205,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2114,7 +2222,9 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 			
 			and o.person_id IN (
-			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")	
+			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Sent")
+
+		      and o.location_id = :locationId	
 	</annotation>
 	</dataValueTemplate>
 
@@ -2130,7 +2240,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2149,6 +2259,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Unsent")	
 
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 	
@@ -2164,7 +2275,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2183,12 +2294,566 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.person_id IN (
 			SELECT patient_id FROM `chits_lab_request`  INNER JOIN chits_lab_type  on chits_lab_request.lab_type_id = chits_lab_type.id WHERE lab_type_id = (SELECT id FROM chits_lab_type WHERE name="X-Ray" )  and status = "Unsent")	
 	
+		      and o.location_id = :locationId
 	</annotation>
 	</dataValueTemplate>
 
 
 
+	
+	<!-- I. Covered Period	From -->
 
+	 <dataValueTemplate dataElement="PERIOD" disaggregation="XaWGdBZCE67">
+           <annotation>
+      	       select DATE(:startOfPeriod)
+      	from obs o
+      	where o.voided = 0 
+        and (o.date_created >= :startOfPeriod
+      	or o.date_created &lt;= :endOfPeriod)
+      	and o.location_id = :locationId
+	limit 1
+    	           </annotation>
+  	       </dataValueTemplate>     
+
+
+	<!-- I. Covered Period	To -->
+
+	 <dataValueTemplate dataElement="PERIOD" disaggregation="t5KCPK2YLn8">
+           <annotation>
+      	       select DATE(:endOfPeriod)
+      	from obs o
+      	where o.voided = 0 
+        and (o.date_created >= :startOfPeriod
+      	or o.date_created &lt;= :endOfPeriod)
+      	and o.location_id = :locationId
+	limit 1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+	   
+
+	<!-- II.  PARTICIPATION NUMBER -->
+
+	 <dataValueTemplate dataElement="PARTICIPATIONNUM" disaggregation="beBubnoFLUo">
+           <annotation>
+      	       select name
+      	from location l
+      	where l.retired = 0 
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>     
+
+
+
+
+	<!-- III-B.  PROVINCE (using state_province) -->
+
+	 <dataValueTemplate dataElement="PROVINCE" disaggregation="beBubnoFLUo">
+           <annotation>
+      	       select state_province
+      	from location l
+      	where l.retired = 0 
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
+      	and l.location_id = :locationId
+    	           </annotation>
+  	       </dataValueTemplate>     
+
+	
+	<!--  VIII. Top 10 Common Illnesses (Morbidity) -->
+
+	<!-- VIII-Morbidity Cause, top 1 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="A9WHp1CXQOY">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 0,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Cause, top 2 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="Ry4qQ4T8js0">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 1,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Cause, top 3 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="PYCeUPRaJuu">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 2,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+	<!-- VIII-Morbidity Cause, top 4 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="k6aJTB6lda1">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 3,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Cause, top 5 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="IYqcrgmAUul">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 4,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Cause, top 6 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="RGiQVsIgzrS">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 5,1
+    	           </annotation>
+  	       </dataValueTemplate> 
+
+
+	<!-- VIII-Morbidity Cause, top 7 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="b1dIlk8UlUx">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 6,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+	<!-- VIII-Morbidity Cause, top 8 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="PJkCEmXMcdo">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 7,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+
+	<!-- VIII-Morbidity Cause, top 9 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="v8EQFoJn9lN">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 8,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+	<!-- VIII-Morbidity Cause, top 10 -->
+
+	 <dataValueTemplate dataElement="CAUSEOFMORBIDITY" disaggregation="jjudPUevAqu">
+           <annotation>
+      	        SELECT concept_map.comment
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+			IN (
+			   SELECT concept_id
+			   FROM concept_name
+			   WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 9,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+
+
+
+
+
+
+
+
+
+	
+	<!--  VIII. Count in the Top 10 Common Illnesses (Morbidity) -->
+
+	<!-- VIII-Morbidity Count, top 1 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="A9WHp1CXQOY">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 0,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Count, top 2 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="Ry4qQ4T8js0">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 1,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Count, top 3 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="PYCeUPRaJuu">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 2,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+	<!-- VIII-Morbidity Count, top 4 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="k6aJTB6lda1">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 3,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Count, top 5 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="IYqcrgmAUul">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 4,1
+    	           </annotation>
+  	       </dataValueTemplate>    
+
+
+	<!-- VIII-Morbidity Count, top 6 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="RGiQVsIgzrS">
+           <annotation>
+      	              	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 5,1
+    	           </annotation>
+  	       </dataValueTemplate> 
+
+
+	<!-- VIII-Morbidity Count, top 7 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="b1dIlk8UlUx">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 6,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+	<!-- VIII-Morbidity Count, top 8 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="PJkCEmXMcdo">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 7,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+
+	<!-- VIII-Morbidity Count, top 9 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="v8EQFoJn9lN">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 8,1
+    	           </annotation>
+  	       </dataValueTemplate>
+
+
+	<!-- VIII-Morbidity Count, top 10 -->
+
+	 <dataValueTemplate dataElement="MORBIDITYCOUNT" disaggregation="jjudPUevAqu">
+           <annotation>
+      	        SELECT count(o.value_coded)
+		FROM obs o, concept_name, concept_map
+		WHERE o.value_coded = concept_name.concept_id
+		AND concept_name.concept_id = concept_map.concept_id
+		AND o.concept_id
+		    IN (
+			SELECT concept_id
+			FROM concept_name
+			WHERE name = 'diagnosis'
+			)
+		AND (o.date_created >= :startOfPeriod
+	      	or o.date_created &lt;= :endOfPeriod)
+	      	AND o.location_id = :locationId
+		GROUP BY o.value_coded
+		ORDER BY count( o.value_coded ) DESC
+		LIMIT 9,1
+    	           </annotation>
+  	       </dataValueTemplate>
 
 
 
