@@ -23,19 +23,19 @@
 
 
 		<dataElement uid="QL5qRrg365M" code="NAMEHEALTHFACILITY" name="Name of Health Facility" type="string"/>
-		<dataElement uid="qYckN1KcdmJ1q" code="REGION" name="Region" type="String"/>
-		<dataElement uid="NCvQ2npBTM8" code="PROVINCE" name="Province" type="String"/>
-		<dataElement uid="o62AYtT8xMX" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
-		<dataElement uid="MX3aKELqeqU" code="FAMILIESASSIGNED" name="Families Assigned" type="int"/>
-		<dataElement uid="jDjV4dKciiW" code="MEMBERSHIPTYPE" name="Membership Type" type="int"/>
-		<dataElement uid="PtxCUXvoN1q" code="NONPHICMEMBERS" name="Non-PHIC Members" type="int"/>
+		<dataElement uid="xTd8XLbyATH" code="REGION" name="Region" type="String"/>
+		<dataElement uid="xqdkF5xZD4l" code="PROVINCE" name="Province" type="String"/>
+		<dataElement uid="myBvDKLgcql" code="CITY_MUNICIPALITY" name="City/Municipality" type="String"/>
+		<dataElement uid="C04YX4IqGMU" code="FAMILIESASSIGNED" name="Families Assigned" type="int"/>
+		<dataElement uid="cJDRvMzPtjF" code="MEMBERSHIPTYPE" name="Membership Type" type="int"/>
+		<dataElement uid="rkv0NhGD5lH" code="NONPHICMEMBERS" name="Non-PHIC Members" type="int"/>
 		
-		<dataElement uid="fCKCCcXupUE" code="SPNHTS" name="SP - NHTS" type="int"/>
-		<dataElement uid="w5pW5eymZdM" code="SPLGU" name="SP - LGU" type="int"/>
-		<dataElement uid="wrplLObrtFO" code="SPNGA" name="SP - NGA" type="int"/>
-		<dataElement uid="yPY6ylW3olP" code="SPPRIVATE" name="SP - Private" type="int"/>
-		<dataElement uid="n9n42Rg0FTF" code="IPPOG" name="IPP - OG" type="int"/>
-		<dataElement uid="IQq96k9Ppq8" code="IPPOFW" name="IPP - OFW" type="int"/>
+		<dataElement uid="eatjc2xz3v4" code="SPNHTS" name="SP - NHTS" type="int"/>
+		<dataElement uid="uLpXbdzC3hi" code="SPLGU" name="SP - LGU" type="int"/>
+		<dataElement uid="m0tFAI2fNeE" code="SPNGA" name="SP - NGA" type="int"/>
+		<dataElement uid="ftHI37N3MyH" code="SPPRIVATE" name="SP - Private" type="int"/>
+		<dataElement uid="F1XgjnWPos3" code="IPPOG" name="IPP - OG" type="int"/>
+		<dataElement uid="hXxMA9u1MIZ" code="IPPOFW" name="IPP - OFW" type="int"/>
 	
      	</dataElements>
 
@@ -73,23 +73,23 @@
      
   
      <reportTemplate>
-	  <name>PCB Form A2</name>
-	  <uid>bazOE3Zgw8O</uid>
-	  <code>A2</code>
+	  <name>PCB - A2 Form</name>
+	  <uid>haWilOVWjx9</uid>
+	  <code>PCBA2</code>
 	  <periodType>Monthly</periodType>
 	  
 
 	<dataValueTemplates>
-  	 
-  	 <!-- O.  HEALTHCARE FACILITY  (using description) -->
+
+	  	  <!-- O.  HEALTHCARE FACILITY  (using description) -->
 
 	<dataValueTemplate dataElement="NAMEHEALTHFACILITY" disaggregation="RKzJPvA6jNf">
            <annotation>
       	       select description
       	from location l
       	where l.retired = 0 
-        or l.date_created >= :startOfPeriod
-      	or l.date_created &lt;= :endOfPeriod
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
       	and l.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
@@ -101,8 +101,8 @@
       	       select address6
       	from location l
       	where l.retired = 0 
-        or l.date_created >= :startOfPeriod
-      	or l.date_created &lt;= :endOfPeriod
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
       	and l.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
@@ -114,8 +114,8 @@
       	       select state_province
       	from location l
       	where l.retired = 0 
-        or l.date_created >= :startOfPeriod
-      	or l.date_created &lt;= :endOfPeriod
+        and (l.date_created >= :startOfPeriod
+      	or l.date_created &lt;= :endOfPeriod)
       	and l.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>     
@@ -127,13 +127,12 @@
       	       select city_village
       	from location
       	where retired = 0 
-        or date_created >= :startOfPeriod
-      	or date_created &lt;= :endOfPeriod
+        and (date_created >= :startOfPeriod
+      	or date_created &lt;= :endOfPeriod)
       	and location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
 	
-
 	<!-- I-D.  NO. OF ASSIGNED FAMILIES -->
 
 	 <dataValueTemplate dataElement="FAMILIESASSIGNED" disaggregation="RKzJPvA6jNf">
@@ -142,16 +141,22 @@
 		      from chits_family_folder ff
 			inner join chits_family_folder_patient ffp on ff.family_folder_id  = ffp.family_folder_id  
                         inner join obs o on ffp.patient_id = o.person_id
-		      where ff.voided = 0 and o.voided 
-        or ff.date_created >= :startOfPeriod
-      	or ff.date_created &lt;= :endOfPeriod
+		      where ff.voided = 0 and o.voided = 0
+        and (ff.date_created >= :startOfPeriod
+      	or ff.date_created &lt;= :endOfPeriod)
       	and o.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
 	
-	
 
-	 <!-- I-H.  SP - NHTS Member (using sponsor = NATIONAL) -->
+
+
+
+
+
+
+
+	 <!-- I-D.  SP - NHTS Member (using sponsor = NATIONAL) -->
 
 	 <dataValueTemplate dataElement="SPNHTS" disaggregation="RKzJPvA6jNf">
            <annotation>
@@ -182,7 +187,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
   	       </dataValueTemplate>
         
 	
-	<!-- I-F.  SP - LGU (using sponsor = LGU) -->
+	<!-- I-E.  SP - LGU (using sponsor = LGU) -->
 
 	 <dataValueTemplate dataElement="SPLGU" disaggregation="RKzJPvA6jNf">
            <annotation>
@@ -207,6 +212,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and o.location_id = :locationId
     	           </annotation>
   	       </dataValueTemplate>
+
 
 	<!-- I-F.  SP - NGA (using sponsor = EMPLOYER?)-->
 
@@ -258,6 +264,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
     	           </annotation>
   	       </dataValueTemplate>
 
+	
 	<!-- I-H.  IPP - OG (using sponsor = IPP) -->
 
 	 <dataValueTemplate dataElement="IPPOG" disaggregation="RKzJPvA6jNf">
@@ -343,7 +350,9 @@ and DATEDIFF(curdate(), STR_TO_DATE( `value` , '%m/%d/%Y' )) >= 0
     	           </annotation>
   	       </dataValueTemplate>
 
-
+	   
+	
+  	
    	<!-- AGE SEX DISTRIBUTION -->
      
 	          
@@ -359,7 +368,6 @@ and DATEDIFF(curdate(), STR_TO_DATE( `value` , '%m/%d/%Y' )) >= 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 2
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 		    	
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -368,6 +376,8 @@ and DATEDIFF(curdate(), STR_TO_DATE( `value` , '%m/%d/%Y' )) >= 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+			and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		
@@ -382,8 +392,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 2
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-	
+
 			
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -392,6 +401,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+			and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		    	       
@@ -407,7 +418,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 6
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -417,6 +427,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+			and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			       
@@ -432,7 +444,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 6
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -442,6 +453,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+			and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 					       
@@ -458,7 +471,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 16
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -468,6 +480,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>			
 					       
@@ -483,8 +497,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 16
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-	
 			
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -493,6 +505,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			    
@@ -508,7 +522,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 25
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -518,6 +531,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			    
@@ -533,7 +548,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 25
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -543,6 +557,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			 
@@ -558,7 +574,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 60
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			
 			and p.person_id IN (SELECT pa.person_id 
@@ -568,6 +583,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			 
@@ -583,8 +600,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 60
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -593,6 +608,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			 
@@ -607,8 +624,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 60
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -617,6 +632,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			 
@@ -631,8 +648,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 60
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -641,6 +656,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	and voided = 0
 	)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 	       
@@ -659,7 +676,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -674,7 +690,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		and voided = 0
 			)
 		
-
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 		   
@@ -688,7 +704,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -702,6 +717,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 
@@ -716,7 +732,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -731,6 +746,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 		   
@@ -745,7 +762,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 >= 25
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 			and p.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -760,6 +776,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 
@@ -773,7 +790,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   	and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -788,6 +804,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member' LIMIT 1)
 		and voided = 0
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 		   
@@ -801,7 +819,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			and o.value_text IS NOT NULL
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -816,6 +833,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member' LIMIT 1)
 	and voided = 0
 			)
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 
@@ -832,7 +850,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 56
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
 
 
 		
@@ -854,6 +871,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name = 'Dependent of a PHIC member'  LIMIT 1)
 		and voided = 0
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>	
 		   
@@ -869,8 +888,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and date_format(from_days(datediff(:endOfPeriod,p.birthdate)),'%Y')+0 &lt; 56
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id NOT IN 
@@ -889,6 +906,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 	pa.value = (SELECT concept_id from concept_name WHERE name='Dependent of a PHIC member'  LIMIT 1)
 	and voided = 0
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 
@@ -905,8 +924,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and p.gender = 'M'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -943,6 +960,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 				and o.value_text = 'yes')
 			
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -956,8 +975,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -994,6 +1011,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 				and o.value_text = 'yes')
 			
 			)
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1007,9 +1026,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and p.gender = 'M'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
-			
 		
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1045,6 +1061,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 				and o.value_text = 'yes')
 			
 			)
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1058,8 +1075,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -1096,6 +1111,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 				and o.value_text = 'yes')
 			
 			)
+		and o.location_id = :locationId
 			</annotation>
 	       </dataValueTemplate>
 		   
@@ -1110,8 +1126,6 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      and p.gender = 'M'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -1139,7 +1153,8 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumferenc
 GROUP BY person_id )
 
 			)
-			
+
+		and o.location_id = :locationId			
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1153,9 +1168,6 @@ GROUP BY person_id )
 		      and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
-			
 		
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1182,6 +1194,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumferenc
 GROUP BY person_id )
 
 			)
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1195,8 +1208,6 @@ GROUP BY person_id )
 		      and p.gender = 'M'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -1224,6 +1235,10 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumferenc
 GROUP BY person_id )
 
 			)
+
+		and o.location_id = :locationId
+
+	
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1237,8 +1252,6 @@ GROUP BY person_id )
 		      and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 	or o.obs_datetime &lt;= :endOfPeriod)
-	and o.location_id = :locationId
-
 			
 		
 			and o.person_id IN (SELECT pa.person_id 
@@ -1265,6 +1278,9 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Waist circumferenc
 GROUP BY person_id )
 
 			)
+
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 
@@ -1314,6 +1330,9 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+
+		and o.location_id = :locationId
+
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1327,8 +1346,6 @@ ORDER BY obs_id DESC )
 			 and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
-
 			
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1355,6 +1372,9 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+
+
+		and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1368,9 +1388,7 @@ ORDER BY obs_id DESC )
 			 and p.gender = 'M'
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
-
-			
+		     
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
 	WHERE pa.person_attribute_type_id IN (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'CHITS_PHILHEALTH_EXPIRATION'
@@ -1396,6 +1414,10 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+
+ 		and o.location_id = :locationId
+
+			
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1411,7 +1433,7 @@ ORDER BY obs_id DESC )
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 			and o.person_id IN (SELECT pa.person_id 
@@ -1439,6 +1461,8 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1456,7 +1480,7 @@ ORDER BY obs_id DESC )
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1477,7 +1501,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1491,7 +1515,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			 and p.gender = 'F'
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1512,6 +1536,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
+
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1526,7 +1552,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1547,6 +1573,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
+
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1562,7 +1590,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1584,6 +1612,8 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Oral hypoglycemic agent'
 			)
+
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 	       
@@ -1601,9 +1631,11 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
 		     
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
+
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -1644,7 +1676,7 @@ o.value_numeric &lt; 90 and
 concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
-			
+		      and o.location_id = :locationId			
 		    </annotation>
 	       </dataValueTemplate>  
 
@@ -1658,9 +1690,12 @@ GROUP BY person_id )
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
 		     
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
+
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			
 			and o.person_id IN (SELECT pa.person_id 
@@ -1709,7 +1744,7 @@ o.value_numeric &lt; 90 and
 concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
-			
+		      and o.location_id = :locationId			
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -1721,10 +1756,14 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1773,7 +1812,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 			)
 			
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -1785,10 +1824,14 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1830,7 +1873,7 @@ o.value_numeric &lt; 90 and
 concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
-			
+		      and o.location_id = :locationId			
 		    </annotation>
 		  </dataValueTemplate>    
 			 
@@ -1842,10 +1885,14 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1893,7 +1940,8 @@ o.value_numeric &lt; 90 and
 concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
-			
+
+		      and o.location_id = :locationId			
 		    </annotation>
 		  </dataValueTemplate>
 		  
@@ -1905,10 +1953,14 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -1963,7 +2015,7 @@ o.value_numeric &lt; 90 and
 concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1)
 GROUP BY person_id )
 			)
-			
+		      and o.location_id = :locationId			
 		    </annotation>
 		  </dataValueTemplate>
 			 
@@ -1981,10 +2033,14 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 			and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2033,7 +2089,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 					)
 		)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>  
 			 
@@ -2046,9 +2102,12 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
 		   	
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
+
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -2106,6 +2165,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 						)
 			)
+		      and o.location_id = :locationId
 
 		    </annotation>
 	       </dataValueTemplate>    
@@ -2118,10 +2178,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -2179,7 +2243,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 						)
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2191,10 +2255,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
+	
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2244,7 +2312,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 						)
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -2256,10 +2324,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2316,6 +2388,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 						)
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2327,10 +2400,14 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2387,7 +2464,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 
 						)
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			   	  
@@ -2403,9 +2480,12 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
 		      
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
+
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2447,6 +2527,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>  
 			 
@@ -2458,10 +2539,13 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -2510,6 +2594,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -2521,11 +2606,12 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
-		      and o.concept_id = (SELECT concept_id FROM concept_name where name="NCD Program tag" LIMIT 1)
-		   	
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+			   	
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 			
 						and o.person_id IN (SELECT pa.person_id 
@@ -2574,6 +2660,8 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2586,9 +2674,12 @@ GROUP BY person_id )
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
 		      
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
+
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2630,6 +2721,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -2641,10 +2733,13 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2692,6 +2787,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2703,10 +2799,13 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2754,6 +2853,7 @@ concept_id = (SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pr
 GROUP BY person_id )
 
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 			   
@@ -2769,10 +2869,13 @@ GROUP BY person_id )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2799,7 +2902,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>  
 			 
@@ -2811,10 +2914,13 @@ ORDER BY obs_id DESC )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2849,6 +2955,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -2860,10 +2967,13 @@ ORDER BY obs_id DESC )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		     
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2898,6 +3008,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -2909,11 +3020,14 @@ ORDER BY obs_id DESC )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'M'
+	
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 			
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2941,6 +3055,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -2952,10 +3067,14 @@ ORDER BY obs_id DESC )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -2990,6 +3109,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -3001,10 +3121,14 @@ ORDER BY obs_id DESC )
 			inner join person p on o.person_id = p.person_id
 		      where p.voided = 0 and o.voided = 0
 			 and p.gender = 'F'
+
+
+			and o.concept_id IN ((SELECT concept_id FROM concept_name WHERE name="Systolic Blood Pressure" LIMIT 1),(SELECT concept_id FROM concept_name WHERE name="Diastolic Blood Pressure" LIMIT 1))
+	
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3038,6 +3162,7 @@ and o.obs_group_id IN
 (SELECT obs_id FROM obs WHERE concept_id IN (SELECT concept_id FROM concept_name where name  NOT LIKE "%family%history%")
 ORDER BY obs_id DESC )
 )
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 
@@ -3057,7 +3182,7 @@ ORDER BY obs_id DESC )
 		   	
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3079,6 +3204,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>  
 			 
@@ -3093,7 +3219,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		      
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3122,7 +3248,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -3138,7 +3264,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   	and o.value_text = "NCDM - Diabetes"
 		      and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3167,6 +3293,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -3182,7 +3309,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   	and o.value_text = "NCDM - Diabetes"
 			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3204,6 +3331,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>    
 			 
@@ -3219,7 +3347,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   	and o.value_text = "NCDM - Diabetes"
 			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3247,7 +3375,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 		  
@@ -3263,7 +3391,7 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 		   	and o.value_text = "NCDM - Diabetes"
 			and (o.obs_datetime >= :startOfPeriod
 		      or o.obs_datetime &lt;= :endOfPeriod)
-		      and o.location_id = :locationId
+
 			
 						and o.person_id IN (SELECT pa.person_id 
 	FROM person_attribute pa
@@ -3292,11 +3420,11 @@ and DATEDIFF(:endOfPeriod, STR_TO_DATE( `value` , '%m/%d/%Y' )) &lt; 0
 			(
 				SELECT o.person_id FROM obs o WHERE o.concept_id = (SELECT concept_id FROM concept_name where name='Reason for taking the medication' LIMIT 1) and o.value_text = 'Antihypertensive'
 			)
-
+		      and o.location_id = :locationId
 		    </annotation>
 	       </dataValueTemplate>
 	       
-	   
+   
   	 
 	</dataValueTemplates>
     </reportTemplate>
